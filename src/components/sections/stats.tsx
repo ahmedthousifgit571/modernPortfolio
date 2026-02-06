@@ -1,9 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform, useInView, useSpring } from "framer-motion";
-import { Globe, Users } from "lucide-react";
 import { useRef, useEffect, useState } from "react";
-import Image from "next/image";
 
 // Counting number animation component
 function CountingNumber({ value, suffix = "", duration = 2 }: { value: number; suffix?: string; duration?: number }) {
@@ -42,9 +40,9 @@ function CountingNumber({ value, suffix = "", duration = 2 }: { value: number; s
 
 const statsData = [
     {
-        label: "Clients' Revenue",
-        title: "Revenue Growth in 2024",
-        value: 100,
+        label: "Code",
+        title: "Lines of Code\nWritten",
+        value: 50,
         suffix: "K+",
         accent: true,
         icon: "chart"
@@ -52,7 +50,7 @@ const statsData = [
     {
         label: "Work",
         title: "Projects\nDone",
-        value: 5,
+        value: 15,
         suffix: "+",
         accent: false,
         icon: null
@@ -60,7 +58,7 @@ const statsData = [
     {
         label: "Experience",
         title: "Years of\nExperience",
-        value: 1,
+        value: 2,
         suffix: "+",
         accent: false,
         icon: null
@@ -104,61 +102,40 @@ export function Stats() {
                     className="bg-card/80 backdrop-blur-xl rounded-3xl border border-border p-8 md:p-12"
                 >
                     {/* Header */}
-                    <div className="flex justify-between items-start mb-10">
-                        <div>
-                            <motion.div
-                                initial={{ opacity: 0, x: -20 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: 0.2 }}
-                                className="flex items-center gap-2 text-muted-foreground text-sm mb-3"
-                            >
-                                <span className="w-2 h-2 rounded-full bg-primary" />
-                                My teammates and me
-                            </motion.div>
-                            <motion.h2
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: 0.3 }}
-                                className="text-3xl md:text-4xl font-bold"
-                            >
-                                Our journey in<br />
-                                <span className="text-primary">Number</span>
-                            </motion.h2>
-                        </div>
+                    <div className="mb-10">
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: 0.4, type: "spring" }}
-                            className="w-12 h-12 rounded-full bg-card border border-border flex items-center justify-center"
+                            transition={{ duration: 0.5, delay: 0.2 }}
+                            className="flex items-center gap-2 text-muted-foreground text-sm mb-3"
                         >
-                            <Globe className="w-6 h-6 text-muted-foreground" />
+                            <span className="w-2 h-2 rounded-full bg-primary" />
+                            About me
                         </motion.div>
+                        <motion.h2
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 0.3 }}
+                            className="text-3xl md:text-4xl font-bold"
+                        >
+                            My journey in<br />
+                            <span className="text-primary">Numbers</span>
+                        </motion.h2>
                     </div>
 
-                    {/* Subtext with team avatars */}
+                    {/* Subtext */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.5, delay: 0.5 }}
-                        className="flex items-center justify-between mb-10"
+                        className="mb-10"
                     >
                         <p className="text-muted-foreground">
-                            Great work comes from great teams
+                            Passionate about building great products
                         </p>
-                        <div className="flex -space-x-2">
-                            {[...Array(3)].map((_, i) => (
-                                <div
-                                    key={i}
-                                    className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/30 to-blue-500/30 border-2 border-card flex items-center justify-center"
-                                >
-                                    <span className="text-xs font-bold text-primary/70">A{i + 1}</span>
-                                </div>
-                            ))}
-                        </div>
                     </motion.div>
 
                     {/* Stats Grid */}
@@ -180,8 +157,8 @@ export function Stats() {
                                     transition: { duration: 0.2 }
                                 }}
                                 className={`relative overflow-hidden rounded-2xl p-6 ${stat.accent
-                                        ? "bg-primary text-primary-foreground"
-                                        : "bg-card border border-border"
+                                    ? "bg-primary text-primary-foreground"
+                                    : "bg-card border border-border"
                                     }`}
                             >
                                 {/* Label */}

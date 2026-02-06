@@ -1,12 +1,174 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ExternalLink, ArrowUpRight, Stethoscope, MessageCircle, Music, ShoppingCart } from "lucide-react";
+import { motion, useScroll, useTransform, Variants } from "framer-motion";
 import { portfolioData } from "@/lib/data";
-import Link from "next/link";
 import { useRef } from "react";
+import { useRouter } from "next/navigation";
+import { ExternalLink, Github, Building2, Stethoscope, MessageCircle, Music, ShoppingCart } from "lucide-react";
 
-const projectIcons = [Stethoscope, MessageCircle, Music, ShoppingCart];
+// Project icons mapping
+const projectIcons = [Building2, Stethoscope, MessageCircle, Music, ShoppingCart];
+
+// Gradient backgrounds for cards - adapted to your lime theme
+const projectGradients: [number, number][] = [
+    [40, 55],   // Amber/Gold for Golden Bricks
+    [75, 90],   // Lime-ish for healthcare
+    [180, 200], // Cyan for chat
+    [90, 120],  // Green for music
+    [30, 50],   // Orange for e-commerce
+];
+
+const cardVariants: Variants = {
+    offscreen: {
+        y: 300,
+        opacity: 0,
+    },
+    onscreen: {
+        y: 50,
+        opacity: 1,
+        rotate: -10,
+        transition: {
+            type: "spring",
+            bounce: 0.4,
+            duration: 0.8,
+        },
+    },
+};
+
+const hue = (h: number) => `hsl(${h}, 70%, 50%)`;
+
+interface ProjectCardProps {
+    project: typeof portfolioData.projects[0];
+    index: number;
+    hueA: number;
+    hueB: number;
+}
+
+function ProjectCard({ project, index, hueA, hueB }: ProjectCardProps) {
+    const router = useRouter();
+    const background = `linear-gradient(306deg, ${hue(hueA)}, ${hue(hueB)})`;
+    const Icon = projectIcons[index] || Stethoscope;
+
+    const handleClick = () => {
+        router.push(`/projects/${project.slug}`);
+    };
+
+    return (
+        <motion.div
+            className="overflow-hidden flex justify-center items-center relative pt-5 mb-8 cursor-pointer"
+            initial="offscreen"
+            whileInView="onscreen"
+            viewport={{ amount: 0.8 }}
+            onClick={handleClick}
+        >
+            {/* Splash background with clip path - now with image */}
+            <div
+                className="absolute inset-0 overflow-hidden"
+                style={{
+                    clipPath: `path("M 0 303.5 C 0 292.454 8.995 285.101 20 283.5 L 460 219.5 C 470.085 218.033 480 228.454 480 239.5 L 500 430 C 500 441.046 491.046 450 480 450 L 20 450 C 8.954 450 0 441.046 0 430 Z")`,
+                }}
+            >
+                {/* Project screenshot image */}
+                {project.image ? (
+                    <img
+                        src={project.image}
+                        alt={project.title}
+                        className="absolute inset-0 w-full h-full object-cover object-top"
+                    />
+                ) : (
+                    <div
+                        className="absolute inset-0"
+                        style={{ background }}
+                    />
+                )}
+                {/* Gradient overlay for better visibility */}
+                <div
+                    className="absolute inset-0"
+                    style={{
+                        background: `linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.3) 50%, ${hue(hueA)}80 100%)`
+                    }}
+                />
+            </div>
+
+            {/* Card */}
+            <motion.div
+                className="relative w-[300px] h-[430px] flex flex-col justify-between p-6 rounded-[20px] bg-card border border-border group hover:border-primary/50 transition-all duration-300"
+                style={{
+                    boxShadow:
+                        "0 0 1px hsl(0deg 0% 0% / 0.2), 0 0 2px hsl(0deg 0% 0% / 0.2), 0 0 4px hsl(0deg 0% 0% / 0.2), 0 0 8px hsl(0deg 0% 0% / 0.2), 0 0 16px hsl(0deg 0% 0% / 0.2)",
+                    transformOrigin: "10% 60%",
+                }}
+                variants={cardVariants}
+            >
+                {/* Top section with icon */}
+                <div>
+                    {/* Icon container */}
+                    <motion.div
+                        className="w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors"
+                        whileHover={{ scale: 1.05 }}
+                    >
+                        <Icon className="w-10 h-10 text-primary" />
+                    </motion.div>
+
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-2 mb-4">
+                        {project.tags.map((tag, i) => (
+                            <span
+                                key={i}
+                                className="px-3 py-1 text-xs font-medium rounded-full bg-primary/20 text-primary"
+                            >
+                                {tag}
+                            </span>
+                        ))}
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors line-clamp-2">
+                        {project.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-muted-foreground text-sm line-clamp-3">
+                        {project.description}
+                    </p>
+                </div>
+
+                {/* Bottom section with tech stack */}
+                <div>
+                    {/* Tech stack */}
+                    <div className="flex flex-wrap gap-1.5 mb-4">
+                        {project.tech.slice(0, 3).map((tech, i) => (
+                            <span
+                                key={i}
+                                className="px-2 py-0.5 text-[10px] font-medium rounded bg-muted text-muted-foreground"
+                            >
+                                {tech}
+                            </span>
+                        ))}
+                        {project.tech.length > 3 && (
+                            <span className="px-2 py-0.5 text-[10px] font-medium rounded bg-muted text-muted-foreground">
+                                +{project.tech.length - 3}
+                            </span>
+                        )}
+                    </div>
+
+                    {/* Links */}
+                    <div className="flex items-center justify-between">
+                        <span className="text-xs text-primary/60 italic">
+                            Click to view details →
+                        </span>
+                        <div className="flex gap-2">
+                            {project.liveUrl && (
+                                <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                            )}
+                            <Github className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                        </div>
+                    </div>
+                </div>
+            </motion.div>
+        </motion.div>
+    );
+}
 
 export function Projects() {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -45,120 +207,21 @@ export function Projects() {
                         Projects <span className="text-muted-foreground font-light italic">Done</span>
                     </h2>
                     <p className="text-muted-foreground max-w-xl mx-auto">
-                        A showcase of my design projects, highlighting my skills and experience.
+                        A showcase of my design projects, highlighting my skills and experience. Scroll down to reveal each project.
                     </p>
                 </motion.div>
 
-                {/* Projects List */}
-                <div className="space-y-8">
-                    {portfolioData.projects.map((project, index) => {
-                        const Icon = projectIcons[index];
-                        return (
-                            <motion.div
-                                key={index}
-                                initial={{ opacity: 0, y: 60, scale: 0.95 }}
-                                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                                viewport={{ once: true, margin: "-100px" }}
-                                transition={{
-                                    duration: 0.7,
-                                    delay: index * 0.1,
-                                    type: "spring",
-                                    stiffness: 80
-                                }}
-                                className="group"
-                            >
-                                <div className="relative overflow-hidden rounded-3xl bg-card border border-border hover:border-primary/30 transition-all duration-500">
-                                    {/* Project Image Area */}
-                                    <div className="relative aspect-[16/10] bg-gradient-to-br from-gray-900 to-black overflow-hidden">
-                                        {/* Floating mockup/icon */}
-                                        <motion.div
-                                            initial={{ y: 20, opacity: 0 }}
-                                            whileInView={{ y: 0, opacity: 1 }}
-                                            viewport={{ once: true }}
-                                            transition={{
-                                                duration: 0.8,
-                                                delay: 0.3 + index * 0.1,
-                                                type: "spring"
-                                            }}
-                                            className="absolute inset-0 flex items-center justify-center"
-                                        >
-                                            {/* Phone mockup style display */}
-                                            <div className="relative">
-                                                {/* Main phone mockup */}
-                                                <motion.div
-                                                    whileHover={{ scale: 1.05, y: -10 }}
-                                                    transition={{ duration: 0.4, type: "spring" }}
-                                                    className="relative w-48 md:w-64 h-80 md:h-96 bg-gradient-to-b from-gray-800 to-gray-900 rounded-[30px] p-2 shadow-2xl shadow-black/50 border border-gray-700/50"
-                                                >
-                                                    {/* Dynamic Island */}
-                                                    <div className="absolute top-3 left-1/2 -translate-x-1/2 w-16 h-5 bg-black rounded-full z-10" />
-
-                                                    {/* Screen */}
-                                                    <div className={`w-full h-full rounded-[24px] bg-gradient-to-br ${project.gradient} flex items-center justify-center`}>
-                                                        <Icon className="w-16 h-16 text-primary/60" />
-                                                    </div>
-                                                </motion.div>
-
-                                                {/* Secondary floating element */}
-                                                <motion.div
-                                                    animate={{ y: [0, -10, 0] }}
-                                                    transition={{
-                                                        duration: 3,
-                                                        repeat: Infinity,
-                                                        ease: "easeInOut"
-                                                    }}
-                                                    className="absolute -right-8 top-1/4 w-32 h-20 bg-card/90 backdrop-blur rounded-xl border border-border p-3 shadow-xl"
-                                                >
-                                                    <div className="flex gap-1 mb-2">
-                                                        {project.tags.map((tag, i) => (
-                                                            <span key={i} className="px-2 py-0.5 bg-primary/20 text-primary text-[10px] rounded-full">
-                                                                {tag}
-                                                            </span>
-                                                        ))}
-                                                    </div>
-                                                    <div className="flex gap-1">
-                                                        {[...Array(3)].map((_, i) => (
-                                                            <div key={i} className="h-1 bg-muted-foreground/20 rounded flex-1" />
-                                                        ))}
-                                                    </div>
-                                                </motion.div>
-                                            </div>
-                                        </motion.div>
-
-                                        {/* Gradient overlay on hover */}
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                                    </div>
-
-                                    {/* Content */}
-                                    <div className="p-6 md:p-8 flex items-center justify-between">
-                                        <div className="flex-1">
-                                            <h3 className="text-xl md:text-2xl font-bold mb-2 group-hover:text-primary transition-colors duration-300">
-                                                {project.title}
-                                            </h3>
-                                            <p className="text-muted-foreground text-sm">
-                                                {project.tags.join(", ").toLowerCase()}
-                                            </p>
-                                        </div>
-
-                                        {/* Action button */}
-                                        <motion.div
-                                            whileHover={{ scale: 1.1 }}
-                                            whileTap={{ scale: 0.95 }}
-                                            className="relative"
-                                        >
-                                            <Link
-                                                href={project.liveUrl || project.githubUrl}
-                                                target="_blank"
-                                                className="w-14 h-14 rounded-full bg-card border border-border flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all duration-300"
-                                            >
-                                                <ArrowUpRight className="w-6 h-6 group-hover:text-primary-foreground transition-colors duration-300" />
-                                            </Link>
-                                        </motion.div>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        );
-                    })}
+                {/* Scroll-triggered Project Cards */}
+                <div className="mx-auto max-w-[500px] pb-[100px]">
+                    {portfolioData.projects.map((project, index) => (
+                        <ProjectCard
+                            key={project.slug}
+                            project={project}
+                            index={index}
+                            hueA={projectGradients[index]?.[0] ?? 75}
+                            hueB={projectGradients[index]?.[1] ?? 90}
+                        />
+                    ))}
                 </div>
             </div>
         </section>

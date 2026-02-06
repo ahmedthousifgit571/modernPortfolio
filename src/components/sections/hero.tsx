@@ -61,16 +61,16 @@ export function Hero() {
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden z-0">
                     {isMounted && (
                         <Marquee speed={40}>
-                            <span className="text-[15vw] md:text-[18vw] lg:text-[20vw] font-black text-white/[0.03] uppercase tracking-wider px-8">
+                            <span className="text-[15vw] md:text-[18vw] lg:text-[20vw] font-black text-white/[0.08] uppercase tracking-wider px-8">
                                 DEVELOPER
                             </span>
-                            <span className="text-[15vw] md:text-[18vw] lg:text-[20vw] font-black text-white/[0.03] uppercase tracking-wider px-8">
+                            <span className="text-[15vw] md:text-[18vw] lg:text-[20vw] font-black text-white/[0.08] uppercase tracking-wider px-8">
                                 DEVELOPER
                             </span>
-                            <span className="text-[15vw] md:text-[18vw] lg:text-[20vw] font-black text-white/[0.03] uppercase tracking-wider px-8">
+                            <span className="text-[15vw] md:text-[18vw] lg:text-[20vw] font-black text-white/[0.08] uppercase tracking-wider px-8">
                                 DEVELOPER
                             </span>
-                            <span className="text-[15vw] md:text-[18vw] lg:text-[20vw] font-black text-white/[0.03] uppercase tracking-wider px-8">
+                            <span className="text-[15vw] md:text-[18vw] lg:text-[20vw] font-black text-white/[0.08] uppercase tracking-wider px-8">
                                 DEVELOPER
                             </span>
                         </Marquee>
@@ -184,8 +184,7 @@ export function Hero() {
                                                 {/* Role and Social Icons Row */}
                                                 <div className="flex items-center justify-between w-full mb-5">
                                                     <div className="text-left">
-                                                        <p className="text-white/70 text-sm sm:text-base">I&apos;m a <span className="text-white font-medium">Web-designer</span></p>
-                                                        <p className="text-white/70 text-sm sm:text-base">and <span className="text-white font-medium">Developer</span></p>
+                                                        <p className="text-white/70 text-sm sm:text-base">I&apos;m a <span className="text-white font-medium">Full Stack Developer</span></p>
                                                     </div>
                                                     <div className="flex gap-2 sm:gap-3">
                                                         <Link href={portfolioData.github} target="_blank" className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gray-700 transition-colors border border-gray-600">

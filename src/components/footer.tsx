@@ -105,31 +105,12 @@ export function Footer() {
                     {/* Divider */}
                     <div className="h-px bg-border mb-8" />
 
-                    {/* Copyright & Credits */}
-                    <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                    {/* Copyright */}
+                    <div className="flex flex-col md:flex-row items-center justify-center gap-4">
                         <p className="text-sm text-muted-foreground">
                             © {new Date().getFullYear()} Ahmed Thousif. All rights reserved.
                         </p>
-                        <p className="text-sm text-muted-foreground flex items-center gap-2">
-                            Built with
-                            <span className="text-primary">Next.js</span>
-                            &
-                            <span className="text-primary">Framer Motion</span>
-                        </p>
                     </div>
-                </motion.div>
-
-                {/* Bottom text */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    className="text-center mt-8"
-                >
-                    <p className="text-xs text-muted-foreground/50">
-                        Designed & Developed with 💚
-                    </p>
                 </motion.div>
             </div>
         </footer>
