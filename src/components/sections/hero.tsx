@@ -3,36 +3,13 @@
 import { motion, useScroll } from "framer-motion";
 import { ArrowUpRight, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { FloatingPaths } from "@/components/ui/background-paths";
 import { portfolioData } from "@/lib/data";
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
-// Marquee component for infinite scrolling text
-function Marquee({ children, speed = 30 }: { children: React.ReactNode; speed?: number }) {
-    return (
-        <div className="flex overflow-hidden">
-            <motion.div
-                className="flex whitespace-nowrap"
-                animate={{ x: ["0%", "-50%"] }}
-                transition={{
-                    x: {
-                        repeat: Infinity,
-                        repeatType: "loop",
-                        duration: speed,
-                        ease: "linear",
-                    },
-                }}
-            >
-                {children}
-                {children}
-            </motion.div>
-        </div>
-    );
-}
-
 export function Hero() {
-    const [isMounted, setIsMounted] = useState(false);
     const [isRevealed, setIsRevealed] = useState(false);
     const sectionRef = useRef<HTMLElement>(null);
 
@@ -40,8 +17,6 @@ export function Hero() {
     const { scrollY } = useScroll();
 
     useEffect(() => {
-        setIsMounted(true);
-
         const unsubscribe = scrollY.on("change", (latest) => {
             // Once scrolled past 100px, reveal the content and keep it revealed
             if (latest > 100 && !isRevealed) {
@@ -57,24 +32,10 @@ export function Hero() {
             {/* Hero container */}
             <div className="relative flex flex-col items-center pt-28 sm:pt-32 pb-16 min-h-screen">
 
-                {/* Continuous scrolling DEVELOPER text - Behind phone */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden z-0">
-                    {isMounted && (
-                        <Marquee speed={40}>
-                            <span className="text-[15vw] md:text-[18vw] lg:text-[20vw] font-black text-white/[0.08] uppercase tracking-wider px-8">
-                                DEVELOPER
-                            </span>
-                            <span className="text-[15vw] md:text-[18vw] lg:text-[20vw] font-black text-white/[0.08] uppercase tracking-wider px-8">
-                                DEVELOPER
-                            </span>
-                            <span className="text-[15vw] md:text-[18vw] lg:text-[20vw] font-black text-white/[0.08] uppercase tracking-wider px-8">
-                                DEVELOPER
-                            </span>
-                            <span className="text-[15vw] md:text-[18vw] lg:text-[20vw] font-black text-white/[0.08] uppercase tracking-wider px-8">
-                                DEVELOPER
-                            </span>
-                        </Marquee>
-                    )}
+                {/* Floating Paths Animation - Behind phone */}
+                <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+                    <FloatingPaths position={1} />
+                    <FloatingPaths position={-1} />
                 </div>
 
                 {/* Phone Mockup Container */}
