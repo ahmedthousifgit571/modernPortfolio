@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowLeft, ExternalLink, Github, Building2, Stethoscope, MessageCircle, Music, ShoppingCart } from "lucide-react";
+import { ArrowLeft, ExternalLink, Github, Banknote, GraduationCap, Building2, Truck, Stethoscope, MessageCircle, Music, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { portfolioData } from "@/lib/data";
@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
-const projectIcons = [Building2, Stethoscope, MessageCircle, Music, ShoppingCart];
+const projectIcons = [Banknote, GraduationCap, Building2, Truck, Stethoscope, MessageCircle, Music, ShoppingCart];
 
 export default function ProjectDetailPage() {
     const params = useParams();

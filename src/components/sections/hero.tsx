@@ -163,16 +163,13 @@ export function Hero() {
                                                 {/* Tagline */}
                                                 <div className="mb-4">
                                                     <p className="text-white text-lg sm:text-xl font-medium leading-snug">
-                                                        &ldquo;I design and code
+                                                        I don&apos;t just write <span className="text-primary">code.</span>
                                                     </p>
                                                     <p className="text-white text-lg sm:text-xl font-medium leading-snug">
-                                                        beautifully
-                                                    </p>
-                                                    <p className="text-lg sm:text-xl font-medium leading-snug">
-                                                        <span className="text-primary">simple things</span> <span className="text-white">and i love</span>
+                                                        I craft <span className="text-primary">experiences,</span> optimize systems,
                                                     </p>
                                                     <p className="text-white text-lg sm:text-xl font-medium leading-snug">
-                                                        what i do&rdquo;
+                                                        and ship things that <span className="text-primary">matter.</span>
                                                     </p>
                                                 </div>
 

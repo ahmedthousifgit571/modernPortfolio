@@ -56,6 +56,28 @@ export const portfolioData = {
 
     projects: [
         {
+            slug: "faizura-trading",
+            title: "Faizura Trading — Money Exchange Singapore",
+            description: "Singapore's money exchange market is crowded and trust is everything. Faizura Trading needed more than a website — they needed a brand presence that would convert visitors into customers in a high-stakes financial niche. I built a premium, cinematic marketing website with live exchange rates, frame-scrub scroll storytelling (120 WebP canvas frames), and an SEO-first architecture targeting Singapore's competitive forex search intent. The result: a production-grade web experience that builds trust, ranks for local search, and drives real enquiries.",
+            tags: ["Client Work", "FinTech", "Singapore", "Cinematic"],
+            tech: ["Next.js", "TypeScript", "GSAP", "Lenis", "Framer Motion", "Tailwind CSS", "Frankfurter API", "Vercel"],
+            liveUrl: "https://faizura-trading.vercel.app/",
+            githubUrl: "https://github.com/ahmedthousifgit571/FaizuraTrading",
+            gradient: "from-emerald-600/20 to-teal-600/20",
+            image: "/moneyExchange.png"
+        },
+        {
+            slug: "btech-tutor",
+            title: "Btech Tutor — Engineering Education Platform",
+            description: "B.Tech students across Kerala were struggling to find reliable, syllabus-aligned study material in one place — scattered PDFs, outdated resources, and zero guidance for GATE. I built Btech Tutor: a full-stack education platform and CMS that serves branch-level GATE coaching (ECE, EEE, Instrumentation), KTU scheme-aware subject pages (2019 & 2024), mock tests, PYQs, and video links — all managed through a protected admin dashboard. The platform also handles student enquiries via email, moderated reviews, faculty profiles, and city-specific SEO landing pages to capture local search traffic across Kerala.",
+            tags: ["EdTech", "CMS", "Full Stack", "SEO"],
+            tech: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "NextAuth", "Resend", "Supabase", "GSAP", "Lenis", "Tailwind CSS"],
+            liveUrl: "https://btec-tutor.vercel.app/",
+            githubUrl: "https://github.com/ahmedthousifgit571/BtecTutor",
+            gradient: "from-blue-600/20 to-indigo-600/20",
+            image: "/btechTutor.png"
+        },
+        {
             slug: "golden-bricks",
             title: "Golden Bricks — Client Business Website",
             description: "Modern business website built for a client with stunning scroll-based animations, responsive design, and optimized performance. Deployed on Vercel for fast global delivery.",
@@ -65,6 +87,17 @@ export const portfolioData = {
             githubUrl: "https://github.com/ahmedthousifgit571/GoldenBricks",
             gradient: "from-amber-600/20 to-yellow-600/20",
             image: "/goldenBricks.png"
+        },
+        {
+            slug: "saravana-transport-billing",
+            title: "Sree Saravana Transport — Billing & Invoice System",
+            description: "Sree Saravana Transport was running their entire freight operations on handwritten slips — manual Lorry Receipts, no payment tracking, and zero visibility across branches. I built a full-stack billing and booking management system that digitized their day-to-day operations end to end. Staff can now create bookings with consignor/consignee details, auto-generate sequential LR numbers, print professional branded invoices, and track payment status (PAID / TO PAY) in real time. The admin dashboard surfaces today's collection, pending amounts, and total bookings at a glance — giving ownership full operational control for the first time.",
+            tags: ["Client Work", "Billing Software", "Transport", "Admin"],
+            tech: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "NextAuth.js", "Tailwind CSS", "react-to-print", "Neon"],
+            liveUrl: "https://saravana-travels-pcqs.vercel.app/login?callbackUrl=%2Fbooking%2Fnew",
+            githubUrl: "https://github.com/ahmedthousifgit571/saravanaTravels",
+            gradient: "from-orange-600/20 to-amber-600/20",
+            image: "/billingSoftware.png"
         },
         {
             slug: "doctor-appointment-booking",

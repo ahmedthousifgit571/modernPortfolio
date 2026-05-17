@@ -1,228 +1,254 @@
 "use client";
 
-import { motion, useScroll, useTransform, Variants } from "framer-motion";
+import { useEffect, useRef } from "react";
 import { portfolioData } from "@/lib/data";
-import { useRef } from "react";
 import { useRouter } from "next/navigation";
-import { ExternalLink, Github, Building2, Stethoscope, MessageCircle, Music, ShoppingCart } from "lucide-react";
+import { Github, ArrowUpRight } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-// Project icons mapping
-const projectIcons = [Building2, Stethoscope, MessageCircle, Music, ShoppingCart];
-
-// Gradient backgrounds for cards - adapted to your lime theme
-const projectGradients: [number, number][] = [
-    [40, 55],   // Amber/Gold for Golden Bricks
-    [75, 90],   // Lime-ish for healthcare
-    [180, 200], // Cyan for chat
-    [90, 120],  // Green for music
-    [30, 50],   // Orange for e-commerce
-];
-
-const cardVariants: Variants = {
-    offscreen: {
-        y: 300,
-        opacity: 0,
-    },
-    onscreen: {
-        y: 50,
-        opacity: 1,
-        rotate: -10,
-        transition: {
-            type: "spring",
-            bounce: 0.4,
-            duration: 0.8,
-        },
-    },
-};
-
-const hue = (h: number) => `hsl(${h}, 70%, 50%)`;
-
-interface ProjectCardProps {
-    project: typeof portfolioData.projects[0];
-    index: number;
-    hueA: number;
-    hueB: number;
-}
-
-function ProjectCard({ project, index, hueA, hueB }: ProjectCardProps) {
-    const router = useRouter();
-    const background = `linear-gradient(306deg, ${hue(hueA)}, ${hue(hueB)})`;
-    const Icon = projectIcons[index] || Stethoscope;
-
-    const handleClick = () => {
-        router.push(`/projects/${project.slug}`);
-    };
-
-    return (
-        <motion.div
-            className="overflow-hidden flex justify-center items-center relative pt-5 mb-8 cursor-pointer"
-            initial="offscreen"
-            whileInView="onscreen"
-            viewport={{ amount: 0.8 }}
-            onClick={handleClick}
-        >
-            {/* Splash background with clip path - now with image */}
-            <div
-                className="absolute inset-0 overflow-hidden"
-                style={{
-                    clipPath: `path("M 0 303.5 C 0 292.454 8.995 285.101 20 283.5 L 460 219.5 C 470.085 218.033 480 228.454 480 239.5 L 500 430 C 500 441.046 491.046 450 480 450 L 20 450 C 8.954 450 0 441.046 0 430 Z")`,
-                }}
-            >
-                {/* Project screenshot image */}
-                {project.image ? (
-                    <img
-                        src={project.image}
-                        alt={project.title}
-                        className="absolute inset-0 w-full h-full object-cover object-top"
-                    />
-                ) : (
-                    <div
-                        className="absolute inset-0"
-                        style={{ background }}
-                    />
-                )}
-                {/* Gradient overlay for better visibility */}
-                <div
-                    className="absolute inset-0"
-                    style={{
-                        background: `linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.3) 50%, ${hue(hueA)}80 100%)`
-                    }}
-                />
-            </div>
-
-            {/* Card */}
-            <motion.div
-                className="relative w-[300px] h-[430px] flex flex-col justify-between p-6 rounded-[20px] bg-card border border-border group hover:border-primary/50 transition-all duration-300"
-                style={{
-                    boxShadow:
-                        "0 0 1px hsl(0deg 0% 0% / 0.2), 0 0 2px hsl(0deg 0% 0% / 0.2), 0 0 4px hsl(0deg 0% 0% / 0.2), 0 0 8px hsl(0deg 0% 0% / 0.2), 0 0 16px hsl(0deg 0% 0% / 0.2)",
-                    transformOrigin: "10% 60%",
-                }}
-                variants={cardVariants}
-            >
-                {/* Top section with icon */}
-                <div>
-                    {/* Icon container */}
-                    <motion.div
-                        className="w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors"
-                        whileHover={{ scale: 1.05 }}
-                    >
-                        <Icon className="w-10 h-10 text-primary" />
-                    </motion.div>
-
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-2 mb-4">
-                        {project.tags.map((tag, i) => (
-                            <span
-                                key={i}
-                                className="px-3 py-1 text-xs font-medium rounded-full bg-primary/20 text-primary"
-                            >
-                                {tag}
-                            </span>
-                        ))}
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors line-clamp-2">
-                        {project.title}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="text-muted-foreground text-sm line-clamp-3">
-                        {project.description}
-                    </p>
-                </div>
-
-                {/* Bottom section with tech stack */}
-                <div>
-                    {/* Tech stack */}
-                    <div className="flex flex-wrap gap-1.5 mb-4">
-                        {project.tech.slice(0, 3).map((tech, i) => (
-                            <span
-                                key={i}
-                                className="px-2 py-0.5 text-[10px] font-medium rounded bg-muted text-muted-foreground"
-                            >
-                                {tech}
-                            </span>
-                        ))}
-                        {project.tech.length > 3 && (
-                            <span className="px-2 py-0.5 text-[10px] font-medium rounded bg-muted text-muted-foreground">
-                                +{project.tech.length - 3}
-                            </span>
-                        )}
-                    </div>
-
-                    {/* Links */}
-                    <div className="flex items-center justify-between">
-                        <span className="text-xs text-primary/60 italic">
-                            Click to view details →
-                        </span>
-                        <div className="flex gap-2">
-                            {project.liveUrl && (
-                                <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
-                            )}
-                            <Github className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
-                        </div>
-                    </div>
-                </div>
-            </motion.div>
-        </motion.div>
-    );
-}
+gsap.registerPlugin(ScrollTrigger);
 
 export function Projects() {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start end", "end start"]
-    });
+    const sectionRef = useRef<HTMLDivElement>(null);
+    const router = useRouter();
 
-    // Parallax for background text
-    const bgTextY = useTransform(scrollYProgress, [0, 1], [200, -200]);
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            // Header reveal
+            gsap.fromTo(
+                ".proj-header",
+                { opacity: 0, y: 60 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: ".proj-header",
+                        start: "top 85%",
+                        toggleActions: "play none none none",
+                    },
+                }
+            );
+
+            // Each project row
+            gsap.utils.toArray<HTMLElement>(".proj-row").forEach((row) => {
+                const line = row.querySelector<HTMLElement>(".proj-line");
+                const num = row.querySelector<HTMLElement>(".proj-num");
+                const info = row.querySelector<HTMLElement>(".proj-info");
+                const img = row.querySelector<HTMLElement>(".proj-img");
+
+                const tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: row,
+                        start: "top 78%",
+                        toggleActions: "play none none none",
+                    },
+                });
+
+                if (line) {
+                    tl.fromTo(
+                        line,
+                        { scaleX: 0 },
+                        { scaleX: 1, duration: 0.9, ease: "power3.inOut" }
+                    );
+                }
+
+                if (num) {
+                    tl.fromTo(
+                        num,
+                        { opacity: 0, x: -20 },
+                        { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" },
+                        "-=0.5"
+                    );
+                }
+
+                if (info) {
+                    tl.fromTo(
+                        info,
+                        { opacity: 0, y: 50 },
+                        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
+                        "-=0.55"
+                    );
+                }
+
+                if (img) {
+                    tl.fromTo(
+                        img,
+                        { opacity: 0, y: 40, scale: 0.96 },
+                        { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" },
+                        "-=0.65"
+                    );
+                }
+            });
+
+            // Final line
+            gsap.fromTo(
+                ".proj-final-line",
+                { scaleX: 0 },
+                {
+                    scaleX: 1,
+                    duration: 0.9,
+                    ease: "power3.inOut",
+                    scrollTrigger: {
+                        trigger: ".proj-final-line",
+                        start: "top 90%",
+                        toggleActions: "play none none none",
+                    },
+                }
+            );
+        }, sectionRef);
+
+        return () => ctx.revert();
+    }, []);
 
     return (
-        <section
-            ref={containerRef}
-            id="projects"
-            className="relative py-24 md:py-32 px-6 overflow-hidden"
-        >
-            {/* Parallax background text */}
-            <motion.div
-                style={{ y: bgTextY }}
-                className="absolute top-1/3 left-0 text-[12vw] font-black whitespace-nowrap pointer-events-none select-none text-white/[0.02] -z-10"
-            >
-                PROJECTS DONE
-            </motion.div>
+        <section ref={sectionRef} id="projects" className="relative py-24 md:py-32 px-6">
+            <div className="max-w-6xl mx-auto">
 
-            <div className="max-w-5xl mx-auto relative z-10">
-                {/* Section Header */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
-                    className="text-center mb-16"
-                >
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-                        Projects <span className="text-muted-foreground font-light italic">Done</span>
-                    </h2>
-                    <p className="text-muted-foreground max-w-xl mx-auto">
-                        A showcase of my design projects, highlighting my skills and experience. Scroll down to reveal each project.
+                {/* Header */}
+                <div className="proj-header mb-16 md:mb-24">
+                    <p className="text-primary text-xs font-semibold tracking-[0.3em] uppercase mb-6">
+                        Selected Work
                     </p>
-                </motion.div>
-
-                {/* Scroll-triggered Project Cards */}
-                <div className="mx-auto max-w-[500px] pb-[100px]">
-                    {portfolioData.projects.map((project, index) => (
-                        <ProjectCard
-                            key={project.slug}
-                            project={project}
-                            index={index}
-                            hueA={projectGradients[index]?.[0] ?? 75}
-                            hueB={projectGradients[index]?.[1] ?? 90}
-                        />
-                    ))}
+                    <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+                        <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-[0.88] tracking-tight">
+                            Projects
+                        </h2>
+                        <p className="text-muted-foreground text-sm max-w-[260px] leading-relaxed md:pb-2">
+                            Real-world applications built with modern tech stacks and shipped to production.
+                        </p>
+                    </div>
                 </div>
+
+                {/* Project rows */}
+                {portfolioData.projects.map((project, index) => {
+                    const isEven = index % 2 !== 0;
+                    const num = String(index + 1).padStart(2, "0");
+
+                    return (
+                        <div key={project.slug} className="proj-row">
+                            {/* Reveal line */}
+                            <div className="proj-line h-px bg-border origin-left" />
+
+                            <div className="flex flex-col md:flex-row items-start gap-8 md:gap-12 py-14 md:py-16">
+
+                                {/* Index number */}
+                                <div className="proj-num hidden md:block w-12 shrink-0 pt-1.5">
+                                    <span className="font-mono text-xs text-primary/30 tracking-widest select-none">
+                                        {num}
+                                    </span>
+                                </div>
+
+                                {/* Info */}
+                                <div
+                                    className={`proj-info flex-1 flex flex-col justify-between gap-10 ${
+                                        isEven ? "md:order-last" : ""
+                                    }`}
+                                >
+                                    <div>
+                                        {/* Tags */}
+                                        <div className="flex flex-wrap gap-2 mb-5">
+                                            {project.tags.map((tag, i) => (
+                                                <span
+                                                    key={i}
+                                                    className="px-3 py-1 text-[11px] font-medium rounded-full border border-primary/25 text-primary/70 tracking-wide"
+                                                >
+                                                    {tag}
+                                                </span>
+                                            ))}
+                                        </div>
+
+                                        {/* Title */}
+                                        <h3 className="text-2xl md:text-[1.75rem] font-bold leading-snug mb-4 text-white">
+                                            {project.title}
+                                        </h3>
+
+                                        {/* Description */}
+                                        <p className="text-muted-foreground text-sm leading-relaxed max-w-md">
+                                            {project.description}
+                                        </p>
+                                    </div>
+
+                                    {/* Tech + Links */}
+                                    <div>
+                                        <div className="flex flex-wrap gap-2 mb-7">
+                                            {project.tech.map((tech, i) => (
+                                                <span
+                                                    key={i}
+                                                    className="px-2.5 py-1 text-[11px] rounded-md bg-white/[0.04] text-muted-foreground border border-white/[0.07]"
+                                                >
+                                                    {tech}
+                                                </span>
+                                            ))}
+                                        </div>
+
+                                        <div className="flex items-center gap-3">
+                                            {project.liveUrl && (
+                                                <a
+                                                    href={project.liveUrl}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-black text-sm font-semibold hover:bg-primary/85 transition-all duration-200 group/btn"
+                                                >
+                                                    Live Demo
+                                                    <ArrowUpRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform duration-150" />
+                                                </a>
+                                            )}
+                                            {project.githubUrl && (
+                                                <a
+                                                    href={project.githubUrl}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border text-sm text-muted-foreground hover:border-primary/40 hover:text-primary transition-all duration-200"
+                                                >
+                                                    <Github className="w-3.5 h-3.5" />
+                                                    Code
+                                                </a>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Image */}
+                                <div
+                                    className={`proj-img flex-1 w-full relative rounded-2xl overflow-hidden cursor-pointer group border border-white/[0.06] ${
+                                        isEven ? "md:order-first" : ""
+                                    }`}
+                                    style={{ aspectRatio: "16/10" }}
+                                    onClick={() => router.push(`/projects/${project.slug}`)}
+                                >
+                                    {project.image ? (
+                                        <>
+                                            <img
+                                                src={project.image}
+                                                alt={project.title}
+                                                className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                                            />
+                                            {/* Hover overlay */}
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                                                <span className="text-white text-sm font-medium flex items-center gap-1.5">
+                                                    View Details
+                                                    <ArrowUpRight className="w-4 h-4" />
+                                                </span>
+                                            </div>
+                                            {/* Subtle always-on vignette */}
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
+                                        </>
+                                    ) : (
+                                        <div className="w-full h-full bg-card flex items-center justify-center">
+                                            <span className="text-muted-foreground text-sm">No preview</span>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })}
+
+                {/* Final divider */}
+                <div className="proj-final-line h-px bg-border origin-left" />
             </div>
         </section>
     );
