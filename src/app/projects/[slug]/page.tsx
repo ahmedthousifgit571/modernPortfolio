@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowLeft, ExternalLink, Github, Banknote, GraduationCap, Building2, Truck, Stethoscope, MessageCircle, Music, ShoppingCart } from "lucide-react";
+import { ArrowLeft, ExternalLink, Github, Banknote, GraduationCap, Building2, Factory, Truck, Stethoscope, MessageCircle, Music, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { portfolioData } from "@/lib/data";
@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
-const projectIcons = [Banknote, GraduationCap, Building2, Truck, Stethoscope, MessageCircle, Music, ShoppingCart];
+const projectIcons = [Banknote, GraduationCap, Building2, Factory, Truck, Stethoscope, MessageCircle, Music, ShoppingCart];
 
 export default function ProjectDetailPage() {
     const params = useParams();
@@ -116,12 +116,14 @@ export default function ProjectDetailPage() {
                                         </Button>
                                     </Link>
                                 )}
-                                <Link href={project.githubUrl} target="_blank">
-                                    <Button variant="outline" className="hover:border-primary hover:text-primary">
-                                        <Github className="mr-2 h-4 w-4" />
-                                        View Source Code
-                                    </Button>
-                                </Link>
+                                {project.githubUrl && (
+                                    <Link href={project.githubUrl} target="_blank">
+                                        <Button variant="outline" className="hover:border-primary hover:text-primary">
+                                            <Github className="mr-2 h-4 w-4" />
+                                            View Source Code
+                                        </Button>
+                                    </Link>
+                                )}
                             </div>
                         </motion.div>
 
@@ -307,12 +309,14 @@ export default function ProjectDetailPage() {
                                     </Button>
                                 </Link>
                             )}
-                            <Link href={project.githubUrl} target="_blank">
-                                <Button size="lg" variant="outline" className="hover:border-primary hover:text-primary">
-                                    <Github className="mr-2 h-5 w-5" />
-                                    View on GitHub
-                                </Button>
-                            </Link>
+                            {project.githubUrl && (
+                                <Link href={project.githubUrl} target="_blank">
+                                    <Button size="lg" variant="outline" className="hover:border-primary hover:text-primary">
+                                        <Github className="mr-2 h-5 w-5" />
+                                        View on GitHub
+                                    </Button>
+                                </Link>
+                            )}
                             <Button
                                 size="lg"
                                 variant="ghost"

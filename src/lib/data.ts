@@ -89,6 +89,16 @@ export const portfolioData = {
             image: "/goldenBricks.png"
         },
         {
+            slug: "brunel-steel",
+            title: "Brunel Steel — Industrial Web Platform",
+            description: "A production-ready industrial platform built for scale. Dynamic content management, cloud infrastructure, and SEO optimization — delivered as a complete business solution, not just a website.",
+            tags: ["Client Work", "Industrial", "Full Stack", "CMS"],
+            tech: ["React", "FastAPI", "MongoDB", "Tailwind CSS", "AWS", "EmailJS"],
+            liveUrl: "https://brunel-steel-buildings.vercel.app/",
+            gradient: "from-slate-600/20 to-zinc-600/20",
+            image: "/steelWebsite.png"
+        },
+        {
             slug: "saravana-transport-billing",
             title: "Sree Saravana Transport — Billing & Invoice System",
             description: "Sree Saravana Transport was running their entire freight operations on handwritten slips — manual Lorry Receipts, no payment tracking, and zero visibility across branches. I built a full-stack billing and booking management system that digitized their day-to-day operations end to end. Staff can now create bookings with consignor/consignee details, auto-generate sequential LR numbers, print professional branded invoices, and track payment status (PAID / TO PAY) in real time. The admin dashboard surfaces today's collection, pending amounts, and total bookings at a glance — giving ownership full operational control for the first time.",
