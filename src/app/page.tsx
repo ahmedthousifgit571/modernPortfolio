@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/navbar";
 import { Hero } from "@/components/sections/hero";
 import { Stats } from "@/components/sections/stats";
+import { ParallaxGallery } from "@/components/sections/parallax-gallery";
 import { Projects } from "@/components/sections/projects";
 import { Experience } from "@/components/sections/experience";
 import { Skills } from "@/components/sections/skills";
@@ -13,6 +14,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Stats />
+      <ParallaxGallery />
       <Projects />
       <Experience />
       <Skills />

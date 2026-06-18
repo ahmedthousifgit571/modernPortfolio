@@ -56,6 +56,17 @@ export const portfolioData = {
 
     projects: [
         {
+            slug: "mgm-hospital",
+            title: "MGM Hospital — Hospital Management & Doctor Booking App",
+            description: "Hospitals lose patients to friction — long queues, manual scheduling, and no way to confirm an appointment without a phone call. I built MGM Hospital, a full-stack hospital management platform that lets patients browse doctors, check live availability, and book appointments online in a few clicks. The booking flow is backed by Razorpay for secure online payments and automated WhatsApp notifications that confirm and remind patients of their appointments, cutting down no-shows and front-desk workload. On the backend, a Node.js/Express API manages doctors, schedules, and bookings against a PostgreSQL database via Supabase, while the React frontend uses GSAP, Framer Motion, and Lenis for smooth, polished scroll and page transitions. The result is an end-to-end booking experience — from choosing a doctor to paying and getting notified — wrapped in a fast, modern interface.",
+            tags: ["Client Work", "Healthcare", "Full Stack", "Payments"],
+            tech: ["React", "Node.js", "Express", "PostgreSQL", "Supabase", "Razorpay", "Framer Motion", "Lenis", "GSAP"],
+            liveUrl: "https://mgm-hospital.vercel.app/",
+            githubUrl: "https://github.com/ahmedthousifgit571/MGM_Hospital.git",
+            gradient: "from-rose-600/20 to-pink-600/20",
+            image: "/mgm.png"
+        },
+        {
             slug: "faizura-trading",
             title: "Faizura Trading — Money Exchange Singapore",
             description: "Singapore's money exchange market is crowded and trust is everything. Faizura Trading needed more than a website — they needed a brand presence that would convert visitors into customers in a high-stakes financial niche. I built a premium, cinematic marketing website with live exchange rates, frame-scrub scroll storytelling (120 WebP canvas frames), and an SEO-first architecture targeting Singapore's competitive forex search intent. The result: a production-grade web experience that builds trust, ranks for local search, and drives real enquiries.",
@@ -111,7 +122,7 @@ export const portfolioData = {
         },
         {
             slug: "doctor-appointment-booking",
-            title: "Doctor Appointment Booking Platform",
+            title: "Acupuncture Clinic Website",
             description: "Full-stack appointment booking system with role-based access control (RBAC) for users, doctors, and admins. Built with PostgreSQL and Prisma ORM.",
             tags: ["Full Stack", "Healthcare"],
             tech: ["React", "Node.js", "PostgreSQL", "Prisma"],
