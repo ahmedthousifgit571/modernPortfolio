@@ -56,6 +56,17 @@ export const portfolioData = {
 
     projects: [
         {
+            slug: "architecture-firm",
+            title: "Atelier — Architecture Firm Website",
+            description: "Architecture is a visual craft, yet most firm websites reduce years of design work to static grids and lifeless thumbnails — losing the very clients they're meant to impress. I built a cinematic web experience for an architecture firm that treats the website itself as a piece of architecture: full-bleed project imagery, buttery-smooth Lenis scrolling, and GSAP-driven scroll storytelling that reveals spaces the way you'd walk through them. Sections pin, parallax, and transition like scenes in a film, giving each project room to breathe while keeping the visitor moving toward enquiry. Built on Next.js and React with Tailwind CSS for a precise, minimal design language, and deployed on Vercel for fast global delivery — the result is a portfolio that sells the firm's design sensibility before a single word is read.",
+            tags: ["Client Work", "Architecture", "Cinematic", "Frontend"],
+            tech: ["Next.js", "React", "Tailwind CSS", "GSAP", "Lenis", "Vercel"],
+            liveUrl: "https://architeture-firm.vercel.app/",
+            githubUrl: "https://github.com/ahmedthousifgit571/architetureFirm",
+            gradient: "from-stone-600/20 to-neutral-600/20",
+            image: "/arc-2.png"
+        },
+        {
             slug: "mgm-hospital",
             title: "MGM Hospital — Hospital Management & Doctor Booking App",
             description: "Hospitals lose patients to friction — long queues, manual scheduling, and no way to confirm an appointment without a phone call. I built MGM Hospital, a full-stack hospital management platform that lets patients browse doctors, check live availability, and book appointments online in a few clicks. The booking flow is backed by Razorpay for secure online payments and automated WhatsApp notifications that confirm and remind patients of their appointments, cutting down no-shows and front-desk workload. On the backend, a Node.js/Express API manages doctors, schedules, and bookings against a PostgreSQL database via Supabase, while the React frontend uses GSAP, Framer Motion, and Lenis for smooth, polished scroll and page transitions. The result is an end-to-end booking experience — from choosing a doctor to paying and getting notified — wrapped in a fast, modern interface.",
