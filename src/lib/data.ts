@@ -54,9 +54,24 @@ export const portfolioData = {
         }
     ],
 
+    projectCategories: ["Cinematic Experience", "Websites", "CRMs", "Mobile Apps", "Mini Projects"],
+
     projects: [
         {
+            slug: "project-hulk",
+            category: "Cinematic Experience",
+            title: "Project Hulk — Personal Fitness Coach Website",
+            description: "A personal fitness coach can transform bodies in the gym, but online they often blend into a sea of generic templates that fail to capture the energy of their training. Project Hulk fixes that. I built a bold, high-impact website that sells the coach's intensity from the first scroll: powerful full-screen visuals, GSAP animations that hit like a workout, and Lenis smooth scrolling that keeps the experience fluid from hero to enquiry. Built with Next.js and TypeScript for a fast, type-safe foundation and styled with Tailwind CSS for a sharp, athletic design language, the site turns casual visitors into training clients by making the coach's brand feel as strong as the results they deliver.",
+            tags: ["Client Work", "Fitness", "Cinematic", "Frontend"],
+            tech: ["Next.js", "TypeScript", "GSAP", "Lenis", "Tailwind CSS"],
+            liveUrl: "https://www.project-hulk.com",
+            githubUrl: "https://github.com/ahmedthousifgit571/personaltrainer",
+            gradient: "from-green-600/20 to-lime-600/20",
+            image: "/fitness.png"
+        },
+        {
             slug: "architecture-firm",
+            category: "Cinematic Experience",
             title: "Atelier — Architecture Firm Website",
             description: "Architecture is a visual craft, yet most firm websites reduce years of design work to static grids and lifeless thumbnails — losing the very clients they're meant to impress. I built a cinematic web experience for an architecture firm that treats the website itself as a piece of architecture: full-bleed project imagery, buttery-smooth Lenis scrolling, and GSAP-driven scroll storytelling that reveals spaces the way you'd walk through them. Sections pin, parallax, and transition like scenes in a film, giving each project room to breathe while keeping the visitor moving toward enquiry. Built on Next.js and React with Tailwind CSS for a precise, minimal design language, and deployed on Vercel for fast global delivery — the result is a portfolio that sells the firm's design sensibility before a single word is read.",
             tags: ["Client Work", "Architecture", "Cinematic", "Frontend"],
@@ -68,6 +83,7 @@ export const portfolioData = {
         },
         {
             slug: "mgm-hospital",
+            category: "Cinematic Experience",
             title: "MGM Hospital — Hospital Management & Doctor Booking App",
             description: "Hospitals lose patients to friction — long queues, manual scheduling, and no way to confirm an appointment without a phone call. I built MGM Hospital, a full-stack hospital management platform that lets patients browse doctors, check live availability, and book appointments online in a few clicks. The booking flow is backed by Razorpay for secure online payments and automated WhatsApp notifications that confirm and remind patients of their appointments, cutting down no-shows and front-desk workload. On the backend, a Node.js/Express API manages doctors, schedules, and bookings against a PostgreSQL database via Supabase, while the React frontend uses GSAP, Framer Motion, and Lenis for smooth, polished scroll and page transitions. The result is an end-to-end booking experience — from choosing a doctor to paying and getting notified — wrapped in a fast, modern interface.",
             tags: ["Client Work", "Healthcare", "Full Stack", "Payments"],
@@ -79,6 +95,7 @@ export const portfolioData = {
         },
         {
             slug: "faizura-trading",
+            category: "Cinematic Experience",
             title: "Faizura Trading — Money Exchange Singapore",
             description: "Singapore's money exchange market is crowded and trust is everything. Faizura Trading needed more than a website — they needed a brand presence that would convert visitors into customers in a high-stakes financial niche. I built a premium, cinematic marketing website with live exchange rates, frame-scrub scroll storytelling (120 WebP canvas frames), and an SEO-first architecture targeting Singapore's competitive forex search intent. The result: a production-grade web experience that builds trust, ranks for local search, and drives real enquiries.",
             tags: ["Client Work", "FinTech", "Singapore", "Cinematic"],
@@ -89,18 +106,8 @@ export const portfolioData = {
             image: "/moneyExchange.png"
         },
         {
-            slug: "btech-tutor",
-            title: "Btech Tutor — Engineering Education Platform",
-            description: "B.Tech students across Kerala were struggling to find reliable, syllabus-aligned study material in one place — scattered PDFs, outdated resources, and zero guidance for GATE. I built Btech Tutor: a full-stack education platform and CMS that serves branch-level GATE coaching (ECE, EEE, Instrumentation), KTU scheme-aware subject pages (2019 & 2024), mock tests, PYQs, and video links — all managed through a protected admin dashboard. The platform also handles student enquiries via email, moderated reviews, faculty profiles, and city-specific SEO landing pages to capture local search traffic across Kerala.",
-            tags: ["EdTech", "CMS", "Full Stack", "SEO"],
-            tech: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "NextAuth", "Resend", "Supabase", "GSAP", "Lenis", "Tailwind CSS"],
-            liveUrl: "https://btec-tutor.vercel.app/",
-            githubUrl: "https://github.com/ahmedthousifgit571/BtecTutor",
-            gradient: "from-blue-600/20 to-indigo-600/20",
-            image: "/btechTutor.png"
-        },
-        {
             slug: "golden-bricks",
+            category: "Websites",
             title: "Golden Bricks — Client Business Website",
             description: "Modern business website built for a client with stunning scroll-based animations, responsive design, and optimized performance. Deployed on Vercel for fast global delivery.",
             tags: ["Client Work", "Business"],
@@ -111,28 +118,8 @@ export const portfolioData = {
             image: "/goldenBricks.png"
         },
         {
-            slug: "brunel-steel",
-            title: "Brunel Steel — Industrial Web Platform",
-            description: "A production-ready industrial platform built for scale. Dynamic content management, cloud infrastructure, and SEO optimization — delivered as a complete business solution, not just a website.",
-            tags: ["Client Work", "Industrial", "Full Stack", "CMS"],
-            tech: ["React", "FastAPI", "MongoDB", "Tailwind CSS", "AWS", "EmailJS"],
-            liveUrl: "https://brunel-steel-buildings.vercel.app/",
-            gradient: "from-slate-600/20 to-zinc-600/20",
-            image: "/steelWebsite.png"
-        },
-        {
-            slug: "saravana-transport-billing",
-            title: "Sree Saravana Transport — Billing & Invoice System",
-            description: "Sree Saravana Transport was running their entire freight operations on handwritten slips — manual Lorry Receipts, no payment tracking, and zero visibility across branches. I built a full-stack billing and booking management system that digitized their day-to-day operations end to end. Staff can now create bookings with consignor/consignee details, auto-generate sequential LR numbers, print professional branded invoices, and track payment status (PAID / TO PAY) in real time. The admin dashboard surfaces today's collection, pending amounts, and total bookings at a glance — giving ownership full operational control for the first time.",
-            tags: ["Client Work", "Billing Software", "Transport", "Admin"],
-            tech: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "NextAuth.js", "Tailwind CSS", "react-to-print", "Neon"],
-            liveUrl: "https://saravana-travels-pcqs.vercel.app/login?callbackUrl=%2Fbooking%2Fnew",
-            githubUrl: "https://github.com/ahmedthousifgit571/saravanaTravels",
-            gradient: "from-orange-600/20 to-amber-600/20",
-            image: "/billingSoftware.png"
-        },
-        {
             slug: "doctor-appointment-booking",
+            category: "Websites",
             title: "Acupuncture Clinic Website",
             description: "Full-stack appointment booking system with role-based access control (RBAC) for users, doctors, and admins. Built with PostgreSQL and Prisma ORM.",
             tags: ["Full Stack", "Healthcare"],
@@ -143,7 +130,43 @@ export const portfolioData = {
             image: "/doctorBooking.png"
         },
         {
+            slug: "btech-tutor",
+            category: "CRMs",
+            title: "Btech Tutor — Engineering Education Platform",
+            description: "B.Tech students across Kerala were struggling to find reliable, syllabus-aligned study material in one place — scattered PDFs, outdated resources, and zero guidance for GATE. I built Btech Tutor: a full-stack education platform and CMS that serves branch-level GATE coaching (ECE, EEE, Instrumentation), KTU scheme-aware subject pages (2019 & 2024), mock tests, PYQs, and video links — all managed through a protected admin dashboard. The platform also handles student enquiries via email, moderated reviews, faculty profiles, and city-specific SEO landing pages to capture local search traffic across Kerala.",
+            tags: ["EdTech", "CMS", "Full Stack", "SEO"],
+            tech: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "NextAuth", "Resend", "Supabase", "GSAP", "Lenis", "Tailwind CSS"],
+            liveUrl: "https://btec-tutor.vercel.app/",
+            githubUrl: "https://github.com/ahmedthousifgit571/BtecTutor",
+            gradient: "from-blue-600/20 to-indigo-600/20",
+            image: "/btechTutor.png"
+        },
+        {
+            slug: "brunel-steel",
+            category: "CRMs",
+            title: "Brunel Steel — Industrial Web Platform",
+            description: "A production-ready industrial platform built for scale. Dynamic content management, cloud infrastructure, and SEO optimization — delivered as a complete business solution, not just a website.",
+            tags: ["Client Work", "Industrial", "Full Stack", "CMS"],
+            tech: ["React", "FastAPI", "MongoDB", "Tailwind CSS", "AWS", "EmailJS"],
+            liveUrl: "https://brunel-steel-buildings.vercel.app/",
+            gradient: "from-slate-600/20 to-zinc-600/20",
+            image: "/steelWebsite.png"
+        },
+        {
+            slug: "saravana-transport-billing",
+            category: "CRMs",
+            title: "Sree Saravana Transport — Billing & Invoice System",
+            description: "Sree Saravana Transport was running their entire freight operations on handwritten slips — manual Lorry Receipts, no payment tracking, and zero visibility across branches. I built a full-stack billing and booking management system that digitized their day-to-day operations end to end. Staff can now create bookings with consignor/consignee details, auto-generate sequential LR numbers, print professional branded invoices, and track payment status (PAID / TO PAY) in real time. The admin dashboard surfaces today's collection, pending amounts, and total bookings at a glance — giving ownership full operational control for the first time.",
+            tags: ["Client Work", "Billing Software", "Transport", "Admin"],
+            tech: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "NextAuth.js", "Tailwind CSS", "react-to-print", "Neon"],
+            liveUrl: "https://saravana-travels-pcqs.vercel.app/login?callbackUrl=%2Fbooking%2Fnew",
+            githubUrl: "https://github.com/ahmedthousifgit571/saravanaTravels",
+            gradient: "from-orange-600/20 to-amber-600/20",
+            image: "/billingSoftware.png"
+        },
+        {
             slug: "chatify-real-time-chat",
+            category: "Mini Projects",
             title: "Chatify — Real-Time Chat Application",
             description: "Real-time chat and video call platform with 1-on-1 & group calls, screen sharing, message reactions, and theme customization.",
             tags: ["Real-time", "Video Call"],
@@ -155,6 +178,7 @@ export const portfolioData = {
         },
         {
             slug: "tunehive-music-streaming",
+            category: "Mini Projects",
             title: "TuneHive — Music Streaming Platform",
             description: "Spotify-inspired full-stack music app with Clerk authentication, real-time chat, dynamic playback, and mobile-responsive design.",
             tags: ["Music", "Streaming"],
@@ -166,6 +190,7 @@ export const portfolioData = {
         },
         {
             slug: "fullstack-ecommerce",
+            category: "Mini Projects",
             title: "Full-Stack E-Commerce Platform",
             description: "Complete e-commerce solution with Razorpay payment integration, admin dashboard, and deployed on AWS EC2 with clean MVC architecture.",
             tags: ["E-Commerce", "AWS"],
