@@ -165,6 +165,17 @@ export const portfolioData = {
             image: "/billingSoftware.png"
         },
         {
+            slug: "jobzinda",
+            category: "Mobile Apps",
+            title: "Jobzinda — Freelancer Marketplace App",
+            description: "Freelancers outside the big-city platforms struggle to find work, and local clients have no easy way to discover skilled people right in their neighbourhood. Jobzinda solves both sides of that problem. It is a mobile marketplace where freelancers discover like-minded professionals in their locality, connect and chat with them in real time, and either hire for a project or get hired by clients. Users can also generate earnings by posting ads, and businesses use the platform to promote their services and find on-demand talent nearby. Built with Flutter for a smooth cross-platform experience and powered by a Node.js and Express backend with MongoDB, the app is live on the Google Play Store as Jobzinda.",
+            tags: ["Mobile App", "Marketplace", "Freelancing", "Chat"],
+            tech: ["Flutter", "Node.js", "Express", "MongoDB"],
+            liveUrl: "https://play.google.com/store/apps/details?id=com.jobZinda.customers",
+            gradient: "from-violet-600/20 to-purple-600/20",
+            image: "/jobzinda.png"
+        },
+        {
             slug: "chatify-real-time-chat",
             category: "Mini Projects",
             title: "Chatify — Real-Time Chat Application",

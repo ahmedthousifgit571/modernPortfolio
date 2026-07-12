@@ -112,7 +112,7 @@ export default function ProjectDetailPage() {
                                             className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_0_30px_rgba(204,255,0,0.3)]"
                                         >
                                             <ExternalLink className="mr-2 h-4 w-4" />
-                                            View Live Demo
+                                            {project.liveUrl.includes("play.google.com") ? "View on Play Store" : "View Live Demo"}
                                         </Button>
                                     </Link>
                                 )}
@@ -305,7 +305,7 @@ export default function ProjectDetailPage() {
                                         className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_0_30px_rgba(204,255,0,0.3)]"
                                     >
                                         <ExternalLink className="mr-2 h-5 w-5" />
-                                        View Live Demo
+                                        {project.liveUrl.includes("play.google.com") ? "View on Play Store" : "View Live Demo"}
                                     </Button>
                                 </Link>
                             )}

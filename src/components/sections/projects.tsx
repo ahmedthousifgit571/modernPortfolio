@@ -343,7 +343,7 @@ export function Projects() {
                                                                     rel="noopener noreferrer"
                                                                     className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-black text-sm font-semibold hover:bg-primary/85 transition-all duration-200 group/btn"
                                                                 >
-                                                                    Live Demo
+                                                                    {project.liveUrl.includes("play.google.com") ? "Play Store" : "Live Demo"}
                                                                     <ArrowUpRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform duration-150" />
                                                                 </a>
                                                             )}
