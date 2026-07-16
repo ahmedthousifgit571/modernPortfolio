@@ -136,7 +136,7 @@ export const portfolioData = {
             description: "B.Tech students across Kerala were struggling to find reliable, syllabus-aligned study material in one place — scattered PDFs, outdated resources, and zero guidance for GATE. I built Btech Tutor: a full-stack education platform and CMS that serves branch-level GATE coaching (ECE, EEE, Instrumentation), KTU scheme-aware subject pages (2019 & 2024), mock tests, PYQs, and video links — all managed through a protected admin dashboard. The platform also handles student enquiries via email, moderated reviews, faculty profiles, and city-specific SEO landing pages to capture local search traffic across Kerala.",
             tags: ["EdTech", "CMS", "Full Stack", "SEO"],
             tech: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "NextAuth", "Resend", "Supabase", "GSAP", "Lenis", "Tailwind CSS"],
-            liveUrl: "https://btec-tutor.vercel.app/",
+            liveUrl: "https://www.btechtutor.com",
             githubUrl: "https://github.com/ahmedthousifgit571/BtecTutor",
             gradient: "from-blue-600/20 to-indigo-600/20",
             image: "/btechTutor.png"
