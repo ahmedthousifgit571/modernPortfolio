@@ -106,6 +106,18 @@ export const portfolioData = {
             image: "/moneyExchange.png"
         },
         {
+            slug: "bemap-travel",
+            category: "Websites",
+            title: "beMap Travel — Travel Agency Website",
+            description: "Travel agencies sell an experience, not a product, so a generic template website undersells the destinations before a customer even reaches out. I built beMap Travel, a cinematic marketing website that brings the agency's tours and destinations to life with immersive full-screen imagery, GSAP-driven scroll animations, and Lenis smooth scrolling that makes browsing feel like flipping through a travel brochure. Built with Next.js and Tailwind CSS for a fast, polished frontend and deployed on Vercel for reliable global delivery, the site turns casual visitors into enquiries by making every destination feel worth booking.",
+            tags: ["Client Work", "Travel", "Cinematic", "Frontend"],
+            tech: ["Next.js", "Tailwind CSS", "GSAP", "Lenis", "Vercel"],
+            liveUrl: "https://be-map-travel-website.vercel.app/",
+            githubUrl: "https://github.com/ahmedthousifgit571/beMap-travel-website",
+            gradient: "from-sky-600/20 to-cyan-600/20",
+            image: "/beMap.png"
+        },
+        {
             slug: "golden-bricks",
             category: "Websites",
             title: "Golden Bricks — Client Business Website",
