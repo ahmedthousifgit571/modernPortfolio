@@ -76,7 +76,7 @@ export const portfolioData = {
             description: "Architecture is a visual craft, yet most firm websites reduce years of design work to static grids and lifeless thumbnails — losing the very clients they're meant to impress. I built a cinematic web experience for an architecture firm that treats the website itself as a piece of architecture: full-bleed project imagery, buttery-smooth Lenis scrolling, and GSAP-driven scroll storytelling that reveals spaces the way you'd walk through them. Sections pin, parallax, and transition like scenes in a film, giving each project room to breathe while keeping the visitor moving toward enquiry. Built on Next.js and React with Tailwind CSS for a precise, minimal design language, and deployed on Vercel for fast global delivery — the result is a portfolio that sells the firm's design sensibility before a single word is read.",
             tags: ["Client Work", "Architecture", "Cinematic", "Frontend"],
             tech: ["Next.js", "React", "Tailwind CSS", "GSAP", "Lenis", "Vercel"],
-            liveUrl: "https://architeture-firm.vercel.app/",
+            liveUrl: "https://www.srripositivebuilders.com",
             githubUrl: "https://github.com/ahmedthousifgit571/architetureFirm",
             gradient: "from-stone-600/20 to-neutral-600/20",
             image: "/arc-2.png"
