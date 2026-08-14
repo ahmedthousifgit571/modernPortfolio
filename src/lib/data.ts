@@ -54,7 +54,7 @@ export const portfolioData = {
         }
     ],
 
-    projectCategories: ["Cinematic Experience", "Websites", "CRMs", "Mobile Apps", "Mini Projects"],
+    projectCategories: ["Cinematic Experience", "Websites", "CRMs", "Mobile Apps", "AI Agents", "Mini Projects"],
 
     projects: [
         {
@@ -186,6 +186,29 @@ export const portfolioData = {
             liveUrl: "https://play.google.com/store/apps/details?id=com.jobZinda.customers",
             gradient: "from-violet-600/20 to-purple-600/20",
             image: "/jobzinda.png"
+        },
+        {
+            slug: "techvest-ai",
+            category: "AI Agents",
+            title: "techVestAi — Multi-Agent Financial Strategy Platform",
+            description: "An AI-powered financial advisory platform based on RAG (Retrieval-Augmented Generation), knowledge base, and the Agno framework. It features a Multi-Agent Engine powered by Agno & Groq (Llama-3.3-70b) with distinct specialized agents working in unison:\n\n• Profiler Agent: Calculates exact investable surplus from income, fixed expenses, and natural language query overrides.\n• Educator Agent (RAG): Queries a local ChromaDB vector database containing Indian tax laws (Old vs New Regime), RSU perquisite taxes, and capital gains rules.\n• Market Analyst Agent: Fetches real-time ETF price quotes (NIFTYBEES.NS, MON100.NS) via yfinance.\n• Synthesizer Agent: Validates and outputs a structured financial strategy with Pydantic JSON schemas.\n⚡ Real-Time SSE Thinking Stream: Streams live agent reasoning and tool invocation steps directly to the frontend using Server-Sent Events (SSE).",
+            tags: ["AI Agent", "RAG", "Multi-Agent Engine", "FinTech", "FastAPI"],
+            tech: ["Agno Framework", "Groq (Llama-3.3-70b)", "ChromaDB", "FastAPI", "Pydantic", "Next.js", "yfinance", "SSE"],
+            githubUrl: "https://github.com/ahmedthousifgit571/techVestAi",
+            gradient: "from-cyan-600/20 to-emerald-600/20",
+            image: "/techVest.png"
+        },
+        {
+            slug: "rag-application",
+            category: "AI Agents",
+            title: "RAG Application — Intelligent PDF Document Q&A Engine",
+            description: "A full-stack RAG solution featuring a FastAPI backend and Next.js frontend that allows users to upload PDF documents and ask context-aware questions. Answers are grounded strictly in the document's actual content and streamed back token-by-token in real time.\n\n• Backend: Built with FastAPI, handling PDF parsing, vector retrieval, and token streaming. Deployed on Render.\n• Frontend: Built with Next.js and deployed on Vercel for an intuitive, live-streaming chat experience.",
+            tags: ["AI", "RAG", "FastAPI", "PDF Q&A", "Token Streaming"],
+            tech: ["FastAPI", "Next.js", "Python", "LangChain", "Render", "Vercel"],
+            liveUrl: "https://rag-application-weld.vercel.app/",
+            githubUrl: "https://github.com/ahmedthousifgit571/rag-application-backend",
+            gradient: "from-blue-600/20 to-teal-600/20",
+            image: "/ragApplication.png"
         },
         {
             slug: "chatify-real-time-chat",
