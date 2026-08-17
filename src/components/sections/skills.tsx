@@ -29,8 +29,10 @@ import {
     SiCloudinary,
     SiRazorpay,
     SiAppwrite,
+    SiPython,
+    SiFastapi,
 } from "react-icons/si";
-import { FaDatabase, FaCloud, FaStream } from "react-icons/fa";
+import { FaDatabase, FaCloud, FaStream, FaBrain, FaRobot, FaProjectDiagram } from "react-icons/fa";
 
 // Define all skills with their icons and categories
 const allSkills = [
@@ -57,6 +59,14 @@ const allSkills = [
     { name: "Cloudinary", icon: SiCloudinary, category: "Backend", color: "#3448C5" },
     { name: "Razorpay", icon: SiRazorpay, category: "Backend", color: "#02042B" },
     { name: "Celigo", icon: FaCloud, category: "Backend", color: "#00B388" },
+
+    // AI & Agents Skills
+    { name: "Python", icon: SiPython, category: "AI & Agents", color: "#3776AB" },
+    { name: "FastAPI", icon: SiFastapi, category: "AI & Agents", color: "#009688" },
+    { name: "Vector DB", icon: FaDatabase, category: "AI & Agents", color: "#00E5CC" },
+    { name: "LangGraph", icon: FaProjectDiagram, category: "AI & Agents", color: "#FF6B6B" },
+    { name: "LangChain", icon: FaBrain, category: "AI & Agents", color: "#38B2AC" },
+    { name: "Agno", icon: FaRobot, category: "AI & Agents", color: "#CCFF00" },
 
     // Database Skills
     { name: "MongoDB", icon: SiMongodb, category: "Database", color: "#47A248" },
@@ -253,6 +263,7 @@ export function Skills() {
                     {[
                         { label: "Frontend Tools", count: allSkills.filter(s => s.category === "Frontend").length },
                         { label: "Backend Tools", count: allSkills.filter(s => s.category === "Backend").length },
+                        { label: "AI & Agents", count: allSkills.filter(s => s.category === "AI & Agents").length },
                         { label: "Database Tools", count: allSkills.filter(s => s.category === "Database").length },
                         { label: "DevOps Tools", count: allSkills.filter(s => s.category === "DevOps").length },
                     ].map((stat, index) => (
