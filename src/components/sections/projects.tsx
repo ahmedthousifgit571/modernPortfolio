@@ -194,7 +194,7 @@ export function Projects() {
                 </div>
 
                 {/* Category folders */}
-                <div className="proj-folders grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 justify-items-center gap-x-6 gap-y-14 pt-16 md:pt-20 pb-16 md:pb-24">
+                <div className="proj-folders grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 justify-items-center gap-x-6 gap-y-14 pt-16 md:pt-20 pb-16 md:pb-24">
                     {portfolioData.projectCategories.map((category) => {
                         const categoryProjects = portfolioData.projects.filter(
                             (p) => p.category === category

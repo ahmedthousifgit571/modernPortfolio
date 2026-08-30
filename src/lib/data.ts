@@ -54,12 +54,12 @@ export const portfolioData = {
         }
     ],
 
-    projectCategories: ["Cinematic Experience", "Websites", "CRMs", "Mobile Apps", "AI Agents", "Mini Projects"],
+    projectCategories: ["Websites", "CRMs", "Mobile Apps", "AI Agents", "Mini Projects"],
 
     projects: [
         {
             slug: "project-hulk",
-            category: "Cinematic Experience",
+            category: "Websites",
             title: "Project Hulk — Personal Fitness Coach Website",
             description: "A personal fitness coach can transform bodies in the gym, but online they often blend into a sea of generic templates that fail to capture the energy of their training. Project Hulk fixes that. I built a bold, high-impact website that sells the coach's intensity from the first scroll: powerful full-screen visuals, GSAP animations that hit like a workout, and Lenis smooth scrolling that keeps the experience fluid from hero to enquiry. Built with Next.js and TypeScript for a fast, type-safe foundation and styled with Tailwind CSS for a sharp, athletic design language, the site turns casual visitors into training clients by making the coach's brand feel as strong as the results they deliver.",
             tags: ["Client Work", "Fitness", "Cinematic", "Frontend"],
@@ -71,7 +71,7 @@ export const portfolioData = {
         },
         {
             slug: "architecture-firm",
-            category: "Cinematic Experience",
+            category: "Websites",
             title: "Atelier — Architecture Firm Website",
             description: "Architecture is a visual craft, yet most firm websites reduce years of design work to static grids and lifeless thumbnails — losing the very clients they're meant to impress. I built a cinematic web experience for an architecture firm that treats the website itself as a piece of architecture: full-bleed project imagery, buttery-smooth Lenis scrolling, and GSAP-driven scroll storytelling that reveals spaces the way you'd walk through them. Sections pin, parallax, and transition like scenes in a film, giving each project room to breathe while keeping the visitor moving toward enquiry. Built on Next.js and React with Tailwind CSS for a precise, minimal design language, and deployed on Vercel for fast global delivery — the result is a portfolio that sells the firm's design sensibility before a single word is read.",
             tags: ["Client Work", "Architecture", "Cinematic", "Frontend"],
@@ -83,7 +83,7 @@ export const portfolioData = {
         },
         {
             slug: "mgm-hospital",
-            category: "Cinematic Experience",
+            category: "Websites",
             title: "MGM Hospital — Hospital Management & Doctor Booking App",
             description: "Hospitals lose patients to friction — long queues, manual scheduling, and no way to confirm an appointment without a phone call. I built MGM Hospital, a full-stack hospital management platform that lets patients browse doctors, check live availability, and book appointments online in a few clicks. The booking flow is backed by Razorpay for secure online payments and automated WhatsApp notifications that confirm and remind patients of their appointments, cutting down no-shows and front-desk workload. On the backend, a Node.js/Express API manages doctors, schedules, and bookings against a PostgreSQL database via Supabase, while the React frontend uses GSAP, Framer Motion, and Lenis for smooth, polished scroll and page transitions. The result is an end-to-end booking experience — from choosing a doctor to paying and getting notified — wrapped in a fast, modern interface.",
             tags: ["Client Work", "Healthcare", "Full Stack", "Payments"],
@@ -95,7 +95,7 @@ export const portfolioData = {
         },
         {
             slug: "faizura-trading",
-            category: "Cinematic Experience",
+            category: "Websites",
             title: "Faizura Trading — Money Exchange Singapore",
             description: "Singapore's money exchange market is crowded and trust is everything. Faizura Trading needed more than a website — they needed a brand presence that would convert visitors into customers in a high-stakes financial niche. I built a premium, cinematic marketing website with live exchange rates, frame-scrub scroll storytelling (120 WebP canvas frames), and an SEO-first architecture targeting Singapore's competitive forex search intent. The result: a production-grade web experience that builds trust, ranks for local search, and drives real enquiries.",
             tags: ["Client Work", "FinTech", "Singapore", "Cinematic"],
