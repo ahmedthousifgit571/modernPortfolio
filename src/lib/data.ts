@@ -54,7 +54,7 @@ export const portfolioData = {
         }
     ],
 
-    projectCategories: ["Websites", "CRMs", "Mobile Apps", "AI Agents", "Mini Projects"],
+    projectCategories: ["Websites", "CRMs", "Billing Software", "Mobile Apps", "AI Agents", "Mini Projects"],
 
     projects: [
         {
@@ -80,6 +80,18 @@ export const portfolioData = {
             githubUrl: "https://github.com/ahmedthousifgit571/architetureFirm",
             gradient: "from-stone-600/20 to-neutral-600/20",
             image: "/arc-2.png"
+        },
+        {
+            slug: "thrill-mill",
+            category: "Websites",
+            title: "Thrill Mill — Sports Turf & Pickleball Booking Platform",
+            description: "Finding and reserving sports venues is often ruined by clumsy phone calls, scattered WhatsApp groups, and double-booked slots. Thrill Mill solves that by bringing instant slot reservations to sports lovers for premium football turfs, pickleball courts, box cricket arenas, and multi-sport facilities. I built a dynamic, high-energy web platform that captures the excitement of game day from the very first interaction: featuring immersive full-screen background video, interactive sport showcases, buttery-smooth Lenis scrolling, and fluid GSAP-driven motion effects. Built with Next.js, React, and Tailwind CSS for peak performance and responsive design, and deployed on Vercel for lightning-fast slot discovery — giving athletes and weekend warriors a seamless, modern way to lock in their court and own the game.",
+            tags: ["Sports", "Turf Booking", "Pickleball", "Cinematic", "Frontend"],
+            tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "GSAP", "Lenis", "Vercel"],
+            liveUrl: "https://thrill-mill.vercel.app",
+            githubUrl: "https://github.com/ahmedthousifgit571/thrill-mill-",
+            gradient: "from-emerald-600/20 to-lime-600/20",
+            image: "/foootball.png"
         },
         {
             slug: "mgm-hospital",
@@ -165,8 +177,20 @@ export const portfolioData = {
             image: "/steelWebsite.png"
         },
         {
+            slug: "khushal-jewellers",
+            category: "Billing Software",
+            title: "Khushal Jewellers — Gold & Silver Retail Billing & Inventory Software",
+            description: "Jewellery retail involves complex daily operations — fluctuating gold and silver market rates, weight-based pricing calculations, customer exchange scrap buybacks, and high-value vault inventory. I built Khushal Jewellers, an end-to-end POS and retail billing software designed specifically for jewellery merchants. The platform features live metal rate configuration (925 sterling silver, 999 fine silver, 22K gold), rapid barcode-assisted counter checkout with automated GST invoices, and a comprehensive product and inventory management system with live vault weight and stock valuation tracking. Store owners also benefit from a built-in Khata credit ledger for tracking customer dues, multi-payment reconciliation, and detailed sales analytics reports.",
+            tags: ["Billing Software", "POS", "Jewellery", "Inventory", "Reports", "Full Stack"],
+            tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL"],
+            liveUrl: "https://silver-shop-software.vercel.app/",
+            githubUrl: "https://github.com/ahmedthousifgit571/silver-shop-software",
+            gradient: "from-amber-600/20 to-yellow-500/20",
+            image: "/goldsilver.png"
+        },
+        {
             slug: "saravana-transport-billing",
-            category: "CRMs",
+            category: "Billing Software",
             title: "Sree Saravana Transport — Billing & Invoice System",
             description: "Sree Saravana Transport was running their entire freight operations on handwritten slips — manual Lorry Receipts, no payment tracking, and zero visibility across branches. I built a full-stack billing and booking management system that digitized their day-to-day operations end to end. Staff can now create bookings with consignor/consignee details, auto-generate sequential LR numbers, print professional branded invoices, and track payment status (PAID / TO PAY) in real time. The admin dashboard surfaces today's collection, pending amounts, and total bookings at a glance — giving ownership full operational control for the first time.",
             tags: ["Client Work", "Billing Software", "Transport", "Admin"],
@@ -186,6 +210,17 @@ export const portfolioData = {
             liveUrl: "https://play.google.com/store/apps/details?id=com.jobZinda.customers",
             gradient: "from-violet-600/20 to-purple-600/20",
             image: "/jobzinda.png"
+        },
+        {
+            slug: "zindalearn",
+            category: "Mobile Apps",
+            title: "ZindaLearn — EdTech & Online Learning Platform App",
+            description: "Access to structured, high-quality skill learning is often fragmented between impersonal video libraries and disconnected communication channels. ZindaLearn bridges that gap with an interactive, mobile-first learning ecosystem that connects ambitious learners with expert instructors. Students can seamlessly explore, preview, and purchase specialized courses, stream adaptive video lessons, track curriculum progress, and earn reward points through built-in gamification. The platform brings the classroom alive through interactive live classes, direct instructor chats, community Q&As, and real-time announcements. Powered by Flutter for a high-performance cross-platform mobile experience and supported by a robust Node.js, Express, and MongoDB backend with Firebase authentication and Socket.IO real-time events, ZindaLearn is available on the Google Play Store.",
+            tags: ["Mobile App", "EdTech", "E-Learning", "Flutter", "Live Classes"],
+            tech: ["Flutter", "Dart", "Node.js", "Express", "MongoDB", "Firebase", "Socket.IO"],
+            liveUrl: "https://play.google.com/store/apps/details?id=com.zindalearn.zindalearn",
+            gradient: "from-blue-600/20 to-cyan-600/20",
+            image: "/educatorTutor.png"
         },
         {
             slug: "techvest-ai",
