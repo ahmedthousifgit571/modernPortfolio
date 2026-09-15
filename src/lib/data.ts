@@ -183,7 +183,7 @@ export const portfolioData = {
             description: "Jewellery retail involves complex daily operations — fluctuating gold and silver market rates, weight-based pricing calculations, customer exchange scrap buybacks, and high-value vault inventory. I built Khushal Jewellers, an end-to-end POS and retail billing software designed specifically for jewellery merchants. The platform features live metal rate configuration (925 sterling silver, 999 fine silver, 22K gold), rapid barcode-assisted counter checkout with automated GST invoices, and a comprehensive product and inventory management system with live vault weight and stock valuation tracking. Store owners also benefit from a built-in Khata credit ledger for tracking customer dues, multi-payment reconciliation, and detailed sales analytics reports.",
             tags: ["Billing Software", "POS", "Jewellery", "Inventory", "Reports", "Full Stack"],
             tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Prisma", "PostgreSQL"],
-            liveUrl: "https://silver-shop-software.vercel.app/",
+            liveUrl: "https://kushaljewellerys.com/",
             githubUrl: "https://github.com/ahmedthousifgit571/silver-shop-software",
             gradient: "from-amber-600/20 to-yellow-500/20",
             image: "/goldsilver.png"
