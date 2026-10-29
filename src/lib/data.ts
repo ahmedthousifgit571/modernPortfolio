@@ -58,6 +58,18 @@ export const portfolioData = {
 
     projects: [
         {
+            slug: "lourtex",
+            category: "Websites",
+            title: "Lourtex — Curtains & Blinds Showcase Website",
+            description: "Curtains and blinds are bought on look and feel, yet most window-furnishing businesses rely on cluttered catalogues and word of mouth, leaving customers unable to picture the fabrics, finishes, and styles on offer. Lourtex fixes that. I built an elegant, showroom-style website that puts the products front and centre: rich full-width imagery of curtains, blinds, and fabrics, GSAP animations that reveal each collection as you scroll, and Lenis smooth scrolling that makes browsing feel like walking through a showroom. Clear sections for products and services — from custom curtains and blinds to measurement and installation — guide visitors from inspiration to enquiry. Built with Next.js and TypeScript for a fast, reliable foundation and styled with Tailwind CSS for a refined, modern look, the site gives the business a premium online presence that turns browsers into customers.",
+            tags: ["Client Work", "Interiors", "Cinematic", "Frontend"],
+            tech: ["Next.js", "TypeScript", "GSAP", "Lenis", "Tailwind CSS"],
+            liveUrl: "https://www.lourtex.com",
+            githubUrl: "https://github.com/ahmedthousifgit571/vortexx-curtains",
+            gradient: "from-amber-600/20 to-orange-600/20",
+            image: "/curtain.png"
+        },
+        {
             slug: "project-hulk",
             category: "Websites",
             title: "Project Hulk — Personal Fitness Coach Website",
