@@ -189,6 +189,18 @@ export const portfolioData = {
             image: "/steelWebsite.png"
         },
         {
+            slug: "school-management-application",
+            category: "CRMs",
+            title: "School Management Application — Complete School Administration Platform",
+            description: "Running a school means juggling admissions, attendance, fees, exams, and parent communication across paper registers and disconnected spreadsheets, with no single view of what is happening on any given day. I built School Management Application, a platform designed completely around school operations, to bring all of it into one dashboard. It covers admissions, student and teacher records, classes, timetables, the academic calendar, attendance, assignments, exams, grades, fees, library, transport, and messaging, with role-based access that gives super admins, admins, teachers, students, and parents only the sections relevant to them. The interface is built with Next.js and Tailwind CSS, backed by an Express API that handles JWT-based login and a PostgreSQL schema modelling users, classes, subjects, and teacher assignments.",
+            tags: ["EdTech", "School Management", "Role-Based Access", "Full Stack"],
+            tech: ["Next.js", "Express", "PostgreSQL", "Tailwind CSS"],
+            liveUrl: "https://school-management-app-mauve.vercel.app",
+            githubUrl: "https://github.com/ahmedthousifgit571/school-management-app",
+            gradient: "from-yellow-600/20 to-pink-600/20",
+            image: "/schoolmanagement.jpg"
+        },
+        {
             slug: "khushal-jewellers",
             category: "Billing Software",
             title: "Khushal Jewellers — Gold & Silver Retail Billing & Inventory Software",

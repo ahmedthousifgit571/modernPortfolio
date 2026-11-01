@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
-const projectIcons = [Banknote, GraduationCap, Trophy, Building2, Factory, Truck, Building2, Stethoscope, GraduationCap, Factory, Gem, Truck, Smartphone, BookOpen, Bot, FileText, MessageCircle, Music, ShoppingCart];
+const projectIcons = [Banknote, GraduationCap, Trophy, Building2, Factory, Truck, Building2, Stethoscope, GraduationCap, Factory, Gem, GraduationCap, Truck, Smartphone, BookOpen, Bot, FileText, MessageCircle, Music, ShoppingCart];
 
 export default function ProjectDetailPage() {
     const params = useParams();
