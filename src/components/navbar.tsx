@@ -1,213 +1,212 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowUpRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
+import { getLenis, scrollToTarget } from "@/components/providers/smooth-scroll";
+import { portfolioData } from "@/lib/data";
+import { cn } from "@/lib/utils";
+import { ArrowUpRight } from "lucide-react";
 
-const navLinks = [
-    { href: "#home", label: "Home" },
-    { href: "#projects", label: "Projects" },
-    { href: "#skills", label: "Skills" },
-    { href: "#experience", label: "Experience" },
+const links = [
+    { id: "about", label: "About" },
+    { id: "projects", label: "Work" },
+    { id: "experience", label: "Experience" },
+    { id: "skills", label: "Skills" },
 ];
 
 export function Navbar() {
-    const [isOpen, setIsOpen] = useState(false);
-    const [scrolled, setScrolled] = useState(false);
-    const [activeSection, setActiveSection] = useState("home");
+    const navRef = useRef<HTMLElement>(null);
+    const indicatorRef = useRef<HTMLSpanElement>(null);
+    const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
+    const menuRef = useRef<HTMLDivElement>(null);
+    const menuTl = useRef<gsap.core.Timeline | null>(null);
+    const [active, setActive] = useState<string | null>(null);
+    const [open, setOpen] = useState(false);
 
-    useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 50);
-
-            // Update active section based on scroll
-            const sections = ["home", "projects", "skills", "experience", "contact"];
-            for (const section of sections) {
-                const element = document.getElementById(section);
-                if (element) {
-                    const rect = element.getBoundingClientRect();
-                    if (rect.top <= 200 && rect.bottom >= 200) {
-                        setActiveSection(section);
-                        break;
-                    }
-                }
-            }
-        };
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
-
-    // Close mobile menu when clicking outside
-    useEffect(() => {
-        if (isOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'unset';
+    // Intro, hide-on-scroll, active-section tracking
+    useGSAP(() => {
+        const nav = navRef.current!;
+        if (!prefersReducedMotion()) {
+            gsap.from(nav, { yPercent: -160, duration: 1.4, delay: 0.9, ease: "expo.out" });
         }
-        return () => {
-            document.body.style.overflow = 'unset';
-        };
-    }, [isOpen]);
+
+        let hidden = false;
+        ScrollTrigger.create({
+            start: 0,
+            end: "max",
+            onUpdate: (self) => {
+                const shouldHide = self.direction === 1 && self.scroll() > 400;
+                if (shouldHide !== hidden) {
+                    hidden = shouldHide;
+                    gsap.to(nav, { yPercent: hidden ? -160 : 0, duration: 0.8, ease: "expo.out", overwrite: "auto" });
+                }
+            },
+        });
+
+        for (const { id } of [...links, { id: "home" }, { id: "contact" }]) {
+            const section = document.getElementById(id);
+            if (!section) continue;
+            ScrollTrigger.create({
+                trigger: section,
+                start: "top 45%",
+                end: "bottom 45%",
+                onToggle: (self) => self.isActive && setActive(id),
+            });
+        }
+    });
+
+    // Slide the white pill under the active link
+    useEffect(() => {
+        const ind = indicatorRef.current;
+        const link = active ? linkRefs.current[active] : null;
+        if (!ind) return;
+        if (!link) {
+            gsap.to(ind, { autoAlpha: 0, duration: 0.3 });
+            return;
+        }
+        gsap.to(ind, {
+            x: link.offsetLeft,
+            width: link.offsetWidth,
+            autoAlpha: 1,
+            duration: 0.7,
+            ease: "expo.out",
+        });
+    }, [active]);
+
+    // Mobile menu timeline
+    useGSAP(() => {
+        const menu = menuRef.current!;
+        menuTl.current = gsap
+            .timeline({ paused: true })
+            .set(menu, { visibility: "visible" })
+            .fromTo(menu, { clipPath: "circle(0% at 92% 4%)" }, { clipPath: "circle(150% at 92% 4%)", duration: 1, ease: "expo.inOut" })
+            .from(menu.querySelectorAll("[data-menu-item]"), { yPercent: 110, duration: 0.9, stagger: 0.06, ease: "expo.out" }, 0.35)
+            .from(menu.querySelectorAll("[data-menu-fade]"), { autoAlpha: 0, y: 16, duration: 0.6, stagger: 0.05 }, 0.6);
+    });
+
+    useEffect(() => {
+        const tl = menuTl.current;
+        if (!tl) return;
+        if (open) {
+            getLenis()?.stop();
+            tl.timeScale(1).play();
+        } else {
+            getLenis()?.start();
+            tl.timeScale(1.6).reverse();
+        }
+    }, [open]);
+
+    const go = (e: React.MouseEvent, id: string) => {
+        e.preventDefault();
+        setOpen(false);
+        // let the menu start closing before we travel
+        setTimeout(() => scrollToTarget(`#${id}`, id === "home" ? 0 : -24), open ? 250 : 0);
+    };
 
     return (
         <>
-            {/* Main Navigation - Single Navbar */}
-            <motion.nav
-                initial={{ y: -100, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="fixed top-4 sm:top-6 left-1/2 -translate-x-1/2 z-50 w-auto"
+            <header
+                ref={navRef}
+                className="fixed inset-x-0 top-4 z-50 flex justify-center px-4 md:top-6"
             >
-                <div className="flex items-center gap-1 bg-card/90 backdrop-blur-xl border border-border rounded-full px-1.5 sm:px-2 py-1.5 sm:py-2 shadow-lg shadow-black/20">
-                    {/* Logo */}
-                    <Link
+                <nav className="flex w-full max-w-max items-center gap-1 rounded-full border border-white/10 bg-black/55 p-1.5 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.8)] backdrop-blur-xl">
+                    <a
                         href="#home"
-                        className="flex items-center px-3 sm:px-4 py-1 mr-1"
+                        onClick={(e) => go(e, "home")}
+                        className="px-3.5 font-display text-lg font-bold tracking-tight text-lime"
                     >
-                        <span className="text-lg sm:text-xl font-bold text-primary">.Ahmed</span>
-                    </Link>
+                        .Ahmed
+                    </a>
 
-                    {/* Desktop Links */}
-                    <div className="hidden md:flex items-center gap-1">
-                        {navLinks.map((link) => (
-                            <Link
-                                key={link.href}
-                                href={link.href}
-                                className={`px-4 lg:px-5 py-2 lg:py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${activeSection === link.href.slice(1)
-                                    ? "bg-white text-black"
-                                    : "text-muted-foreground hover:text-foreground hover:bg-white/5"
-                                    }`}
+                    <div className="relative hidden items-center md:flex">
+                        <span
+                            ref={indicatorRef}
+                            aria-hidden="true"
+                            className="invisible absolute left-0 top-0 h-full w-0 rounded-full bg-fg"
+                        />
+                        {links.map((l) => (
+                            <a
+                                key={l.id}
+                                ref={(el) => {
+                                    linkRefs.current[l.id] = el;
+                                }}
+                                href={`#${l.id}`}
+                                onClick={(e) => go(e, l.id)}
+                                className={cn(
+                                    "relative z-10 rounded-full px-4 py-2 text-sm transition-colors duration-300",
+                                    active === l.id ? "text-black" : "text-fg/70 hover:text-fg"
+                                )}
                             >
-                                {link.label}
-                            </Link>
+                                {l.label}
+                            </a>
                         ))}
                     </div>
 
-                    {/* CTA Button - Desktop */}
-                    <Link href="#contact" className="hidden md:flex">
-                        <Button
-                            size="sm"
-                            className={`rounded-full gap-1.5 px-4 lg:px-5 transition-all duration-300 ${activeSection === "contact"
-                                ? "bg-white text-black hover:bg-gray-100"
-                                : "bg-primary text-primary-foreground hover:bg-primary/90"
-                                }`}
-                        >
-                            Contact
-                            <ArrowUpRight className="w-4 h-4" />
-                        </Button>
-                    </Link>
-
-                    {/* Mobile Menu Button */}
-                    <button
-                        onClick={() => setIsOpen(!isOpen)}
-                        className="md:hidden p-2 sm:p-2.5 rounded-full text-foreground hover:bg-white/10 transition-colors"
-                        aria-label="Toggle menu"
+                    <a
+                        href="#contact"
+                        onClick={(e) => go(e, "contact")}
+                        className="group/c ml-1 hidden items-center gap-1.5 rounded-full bg-lime px-4 py-2 text-sm font-medium text-black transition-transform duration-500 ease-out-expo active:scale-95 md:inline-flex"
                     >
-                        <motion.div
-                            animate={{ rotate: isOpen ? 90 : 0 }}
-                            transition={{ duration: 0.2 }}
-                        >
-                            {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-                        </motion.div>
-                    </button>
-                </div>
-            </motion.nav>
-
-            {/* Mobile Menu Overlay */}
-            <AnimatePresence>
-                {isOpen && (
-                    <>
-                        {/* Backdrop */}
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.2 }}
-                            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
-                            onClick={() => setIsOpen(false)}
+                        Contact
+                        <ArrowUpRight
+                            className="h-3.5 w-3.5 transition-transform duration-500 ease-out-expo group-hover/c:-translate-y-0.5 group-hover/c:translate-x-0.5"
+                            strokeWidth={2}
                         />
+                    </a>
 
-                        {/* Mobile Menu */}
-                        <motion.div
-                            initial={{ opacity: 0, y: -20, scale: 0.95 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, y: -20, scale: 0.95 }}
-                            transition={{ duration: 0.3, type: "spring", stiffness: 300, damping: 30 }}
-                            className="fixed top-20 left-4 right-4 z-50 md:hidden"
-                        >
-                            <div className="bg-card/95 backdrop-blur-xl border border-border rounded-3xl p-5 shadow-2xl">
-                                {/* Branding */}
-                                <div className="flex items-center gap-3 mb-6 pb-4 border-b border-border">
-                                    <div>
-                                        <span className="text-xl font-bold text-primary">.Ahmed</span>
-                                        <p className="text-xs text-muted-foreground">Full Stack Developer</p>
-                                    </div>
-                                </div>
+                    {/* Hamburger → X */}
+                    <button
+                        type="button"
+                        onClick={() => setOpen((o) => !o)}
+                        aria-label={open ? "Close menu" : "Open menu"}
+                        aria-expanded={open}
+                        className="relative ml-auto flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.06] md:hidden"
+                    >
+                        <span
+                            className={cn(
+                                "absolute h-[1.5px] w-4 bg-fg transition-transform duration-500 ease-out-expo",
+                                open ? "rotate-45" : "-translate-y-[4px]"
+                            )}
+                        />
+                        <span
+                            className={cn(
+                                "absolute h-[1.5px] w-4 bg-fg transition-transform duration-500 ease-out-expo",
+                                open ? "-rotate-45" : "translate-y-[4px]"
+                            )}
+                        />
+                    </button>
+                </nav>
+            </header>
 
-                                {/* Navigation Links */}
-                                <ul className="space-y-1">
-                                    {navLinks.map((link, index) => (
-                                        <motion.li
-                                            key={link.href}
-                                            initial={{ opacity: 0, x: -20 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            transition={{ delay: 0.05 * index }}
-                                        >
-                                            <Link
-                                                href={link.href}
-                                                onClick={() => setIsOpen(false)}
-                                                className={`flex items-center justify-between text-base font-medium rounded-xl p-4 transition-all duration-300 ${activeSection === link.href.slice(1)
-                                                    ? "bg-primary text-primary-foreground"
-                                                    : "text-foreground hover:bg-white/5"
-                                                    }`}
-                                            >
-                                                {link.label}
-                                                {activeSection === link.href.slice(1) && (
-                                                    <span className="w-2 h-2 rounded-full bg-primary-foreground" />
-                                                )}
-                                            </Link>
-                                        </motion.li>
-                                    ))}
-                                </ul>
-
-                                {/* CTA Button */}
-                                <motion.div
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.2 }}
-                                    className="mt-4 pt-4 border-t border-border"
-                                >
-                                    <Link
-                                        href="#contact"
-                                        onClick={() => setIsOpen(false)}
-                                        className="flex items-center justify-center gap-2 w-full text-base font-medium bg-primary text-primary-foreground rounded-xl p-4"
-                                    >
-                                        Contact Me
-                                        <ArrowUpRight className="w-5 h-5" />
-                                    </Link>
-                                </motion.div>
-
-                                {/* Social Links */}
-                                <motion.div
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ delay: 0.3 }}
-                                    className="flex items-center justify-center gap-4 mt-6"
-                                >
-                                    <a href="https://github.com/ahmedthousifakthar" target="_blank" className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:text-primary transition-colors">
-                                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.605-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z" /></svg>
-                                    </a>
-                                    <a href="https://linkedin.com/in/ahmedthousifakthar" target="_blank" className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:text-primary transition-colors">
-                                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
-                                    </a>
-                                </motion.div>
-                            </div>
-                        </motion.div>
-                    </>
-                )}
-            </AnimatePresence>
+            {/* Mobile full-screen menu */}
+            <div
+                ref={menuRef}
+                className="invisible fixed inset-0 z-[45] flex flex-col justify-between bg-[#0a0a0a]/95 px-6 pb-10 pt-32 backdrop-blur-2xl md:hidden"
+                aria-hidden={!open}
+            >
+                <ul className="space-y-1">
+                    {[{ id: "home", label: "Home" }, ...links, { id: "contact", label: "Contact" }].map((l, i) => (
+                        <li key={l.id} className="overflow-hidden">
+                            <a
+                                data-menu-item
+                                href={`#${l.id}`}
+                                onClick={(e) => go(e, l.id)}
+                                tabIndex={open ? 0 : -1}
+                                className="flex items-baseline gap-4 font-display text-[13vw] font-semibold leading-[1.05] tracking-tight"
+                            >
+                                <span className="font-mono text-xs text-lime">0{i + 1}</span>
+                                {l.label}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+                <div className="space-y-2 text-sm text-muted">
+                    <a data-menu-fade href={`mailto:${portfolioData.email}`} className="block text-fg" tabIndex={open ? 0 : -1}>
+                        {portfolioData.email}
+                    </a>
+                    <p data-menu-fade>{portfolioData.location} · Available worldwide</p>
+                </div>
+            </div>
         </>
     );
 }

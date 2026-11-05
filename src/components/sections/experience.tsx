@@ -1,289 +1,122 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { portfolioData } from "@/lib/data";
 import { useRef } from "react";
-import FlowFieldBackground from "@/components/ui/flow-field-background";
-import { Briefcase, GraduationCap, Sparkles } from "lucide-react";
+import { gsap, useGSAP, prefersReducedMotion } from "@/lib/gsap";
+import { portfolioData } from "@/lib/data";
+import { Eyebrow } from "@/components/ui/primitives";
 
 export function Experience() {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start end", "end start"]
-    });
+    const root = useRef<HTMLElement>(null);
+    const job = portfolioData.experience[0];
 
-    // Parallax for background text
-    const bgTextY = useTransform(scrollYProgress, [0, 1], [100, -100]);
-    const bgTextX = useTransform(scrollYProgress, [0, 1], [0, -50]);
-    const bgTextOpacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 0.03, 0.03, 0]);
+    useGSAP(
+        () => {
+            if (prefersReducedMotion()) return;
+            const q = gsap.utils.selector(root);
 
-    // Floating elements animation
-    const floatY = useTransform(scrollYProgress, [0, 1], [-20, 20]);
+            // Lime progress line fills as you read through the highlights
+            gsap.fromTo(
+                q(".xp-progress"),
+                { scaleY: 0 },
+                {
+                    scaleY: 1,
+                    ease: "none",
+                    scrollTrigger: { trigger: q(".xp-list")[0], start: "top 70%", end: "bottom 60%", scrub: true },
+                }
+            );
+
+            // Each highlight's index lights up when it reaches the reading line
+            q<HTMLElement>(".xp-item").forEach((item) => {
+                gsap.fromTo(
+                    item.querySelector(".xp-dot"),
+                    { backgroundColor: "#2a2a28", scale: 0.6 },
+                    {
+                        backgroundColor: "#ccff00",
+                        scale: 1,
+                        duration: 0.5,
+                        ease: "back.out(3)",
+                        scrollTrigger: { trigger: item, start: "top 62%", toggleActions: "play none none reverse" },
+                    }
+                );
+            });
+        },
+        { scope: root }
+    );
 
     return (
-        <section
-            ref={containerRef}
-            id="experience"
-            className="relative py-24 md:py-40 px-6 overflow-hidden"
-        >
-            {/* Animated gradient orbs */}
-            <motion.div
-                style={{ y: floatY }}
-                className="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl pointer-events-none"
-            />
-            <motion.div
-                style={{ y: useTransform(scrollYProgress, [0, 1], [20, -20]) }}
-                className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl pointer-events-none"
-            />
-
-            {/* Parallax background text */}
-            <motion.div
-                style={{ y: bgTextY, x: bgTextX, opacity: bgTextOpacity }}
-                className="absolute top-1/4 -left-20 text-[15vw] font-black whitespace-nowrap pointer-events-none select-none text-white -z-10"
-            >
-                EXPERIENCE
-            </motion.div>
-
-            <div className="max-w-6xl mx-auto relative z-10">
-                {/* Section Header with enhanced styling */}
-                <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1, type: "spring", stiffness: 80 }}
-                    className="text-center mb-20"
+        <section ref={root} id="experience" className="relative py-28 md:py-44">
+            <div className="container-x">
+                <div data-anim="fade">
+                    <Eyebrow>Experience</Eyebrow>
+                </div>
+                <h2
+                    data-anim="chars"
+                    className="mt-6 max-w-[12ch] font-display text-[clamp(3rem,8vw,8rem)] font-semibold leading-[0.88] tracking-[-0.045em]"
                 >
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6"
-                    >
-                        <Sparkles className="w-4 h-4 text-primary" />
-                        <span className="text-sm font-medium text-primary">Career Journey</span>
-                    </motion.div>
+                    Where I&apos;ve <em className="font-serif font-normal text-lime">built</em>
+                </h2>
 
-                    <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6">
-                        Work <span className="text-muted-foreground font-light italic">Experience</span>
-                    </h2>
-                    <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                        My professional journey in software development
-                    </p>
-                </motion.div>
+                <div className="mt-20 grid gap-14 lg:mt-28 lg:grid-cols-12">
+                    {/* Sticky role card */}
+                    <aside className="lg:col-span-5">
+                        <div className="lg:sticky lg:top-28">
+                            <div data-anim="fade" className="rounded-[2rem] bg-white/[0.03] p-1.5 ring-1 ring-white/10">
+                                <div className="rounded-[calc(2rem-0.375rem)] bg-surface p-7 shadow-[inset_0_1px_1px_rgba(255,255,255,0.08)] md:p-9">
+                                    <div className="flex items-center justify-between gap-4">
+                                        <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted">{job.period}</span>
+                                        <span className="inline-flex items-center gap-2 rounded-full bg-lime/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-lime">
+                                            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-lime" />
+                                            Current
+                                        </span>
+                                    </div>
+                                    <h3 className="mt-8 font-display text-4xl font-semibold tracking-[-0.03em] md:text-5xl">{job.title}</h3>
+                                    <p className="mt-2 font-serif text-2xl italic text-fg/60">@ {job.company}</p>
 
-                {/* Experience Cards with Flow Field Animation */}
-                <div className="space-y-8">
-                    {portfolioData.experience.map((exp, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 60, scale: 0.95 }}
-                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                            viewport={{ once: true, margin: "-50px" }}
-                            transition={{
-                                duration: 0.8,
-                                delay: index * 0.15,
-                                type: "spring",
-                                stiffness: 60
-                            }}
-                            className="relative group"
-                        >
-                            {/* Glow effect on hover */}
-                            <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/20 via-blue-500/20 to-primary/20 rounded-[2rem] opacity-0 group-hover:opacity-100 blur-xl transition-all duration-700" />
-
-                            {/* Main Experience Card */}
-                            <motion.div
-                                whileHover={{ y: -8, transition: { duration: 0.3, type: "spring" } }}
-                                className="relative bg-card/90 backdrop-blur-2xl rounded-[2rem] border border-white/10 overflow-hidden hover:border-primary/40 transition-all duration-500 shadow-2xl shadow-black/20"
-                            >
-                                {/* Flow Field Background Animation */}
-                                <FlowFieldBackground
-                                    color="#CCFF00"
-                                    trailOpacity={0.08}
-                                    particleCount={300}
-                                    speed={0.6}
-                                    backgroundColor="17, 17, 17"
-                                    className="opacity-40 group-hover:opacity-60 transition-opacity duration-500"
-                                />
-
-                                {/* Content overlay with gradient */}
-                                <div className="absolute inset-0 bg-gradient-to-br from-card/95 via-card/80 to-transparent pointer-events-none" />
-
-                                {/* Card content */}
-                                <div className="relative z-10 p-8 md:p-12">
-                                    {/* Header */}
-                                    <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-10">
+                                    <dl className="mt-10 grid grid-cols-1 gap-6 border-t border-line pt-8 text-sm sm:grid-cols-2">
                                         <div>
-                                            {/* Role pill with icon */}
-                                            <motion.div
-                                                initial={{ opacity: 0, x: -30 }}
-                                                whileInView={{ opacity: 1, x: 0 }}
-                                                viewport={{ once: true }}
-                                                transition={{ duration: 0.6, delay: 0.3 }}
-                                                className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-primary text-primary-foreground text-sm font-bold mb-5 shadow-lg shadow-primary/20"
-                                            >
-                                                <Briefcase className="w-4 h-4" />
-                                                <span className="w-2 h-2 rounded-full bg-primary-foreground animate-pulse" />
-                                                {exp.title}
-                                            </motion.div>
-
-                                            <motion.h3
-                                                initial={{ opacity: 0, y: 20 }}
-                                                whileInView={{ opacity: 1, y: 0 }}
-                                                viewport={{ once: true }}
-                                                transition={{ duration: 0.6, delay: 0.4 }}
-                                                className="text-3xl md:text-4xl font-bold mb-3 bg-gradient-to-r from-white to-white/80 bg-clip-text"
-                                            >
-                                                {exp.company}
-                                            </motion.h3>
-                                            <motion.p
-                                                initial={{ opacity: 0 }}
-                                                whileInView={{ opacity: 1 }}
-                                                viewport={{ once: true }}
-                                                transition={{ duration: 0.6, delay: 0.5 }}
-                                                className="text-muted-foreground text-lg font-mono"
-                                            >
-                                                {exp.period}
-                                            </motion.p>
+                                            <dt className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">Education</dt>
+                                            <dd className="mt-2 text-fg/85">{portfolioData.education.degree}</dd>
+                                            <dd className="text-muted">
+                                                {portfolioData.education.institution} · {portfolioData.education.period}
+                                            </dd>
                                         </div>
-
-                                        {/* Animated company logo */}
-                                        <motion.div
-                                            initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
-                                            whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-                                            viewport={{ once: true }}
-                                            transition={{ duration: 0.8, delay: 0.4, type: "spring" }}
-                                            whileHover={{ scale: 1.1, rotate: 5 }}
-                                            className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary/30 via-blue-500/20 to-purple-500/20 border border-white/20 flex items-center justify-center backdrop-blur-sm shadow-xl"
-                                        >
-                                            <span className="text-3xl font-black text-primary">CD</span>
-                                        </motion.div>
-                                    </div>
-
-                                    {/* Highlights Grid with staggered animation */}
-                                    <div className="grid md:grid-cols-2 gap-5">
-                                        {exp.highlights.map((highlight, hIndex) => (
-                                            <motion.div
-                                                key={hIndex}
-                                                initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                                                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                                                viewport={{ once: true }}
-                                                transition={{
-                                                    duration: 0.6,
-                                                    delay: 0.6 + hIndex * 0.12,
-                                                    type: "spring",
-                                                    stiffness: 100
-                                                }}
-                                                whileHover={{
-                                                    scale: 1.03,
-                                                    y: -4,
-                                                    transition: { duration: 0.2 }
-                                                }}
-                                                className="group/card relative p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-primary/40 hover:bg-white/10 transition-all duration-300 overflow-hidden"
-                                            >
-                                                {/* Subtle gradient overlay on hover */}
-                                                <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-primary/5 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300" />
-
-                                                <div className="relative z-10">
-                                                    <div className="flex items-center gap-3 mb-3">
-                                                        <span className="w-2.5 h-2.5 rounded-full bg-primary shadow-lg shadow-primary/50" />
-                                                        <h4 className="font-bold text-foreground text-lg">
-                                                            {highlight.title}
-                                                        </h4>
-                                                    </div>
-                                                    <p className="text-muted-foreground text-sm leading-relaxed">
-                                                        {highlight.description}
-                                                    </p>
-                                                </div>
-                                            </motion.div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </motion.div>
-                        </motion.div>
-                    ))}
-
-                    {/* Education Card with Flow Field */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 60, scale: 0.95 }}
-                        whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{
-                            duration: 0.8,
-                            delay: 0.2,
-                            type: "spring",
-                            stiffness: 60
-                        }}
-                        className="relative group"
-                    >
-                        {/* Glow effect */}
-                        <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-blue-500/20 rounded-[2rem] opacity-0 group-hover:opacity-100 blur-xl transition-all duration-700" />
-
-                        <motion.div
-                            whileHover={{ y: -8, transition: { duration: 0.3, type: "spring" } }}
-                            className="relative bg-card/90 backdrop-blur-2xl rounded-[2rem] border border-white/10 overflow-hidden hover:border-blue-500/40 transition-all duration-500 shadow-2xl shadow-black/20"
-                        >
-                            {/* Flow Field Background - Blue theme */}
-                            <FlowFieldBackground
-                                color="#3b82f6"
-                                trailOpacity={0.08}
-                                particleCount={200}
-                                speed={0.5}
-                                backgroundColor="17, 17, 17"
-                                className="opacity-30 group-hover:opacity-50 transition-opacity duration-500"
-                            />
-
-                            {/* Gradient overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-card/95 via-card/80 to-transparent pointer-events-none" />
-
-                            <div className="relative z-10 p-8 md:p-12">
-                                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-                                    <div>
-                                        <motion.div
-                                            initial={{ opacity: 0, x: -30 }}
-                                            whileInView={{ opacity: 1, x: 0 }}
-                                            viewport={{ once: true }}
-                                            transition={{ duration: 0.6, delay: 0.3 }}
-                                            className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold mb-5 border border-blue-500/30"
-                                        >
-                                            <GraduationCap className="w-4 h-4" />
-                                            <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
-                                            Education
-                                        </motion.div>
-
-                                        <motion.h3
-                                            initial={{ opacity: 0, y: 20 }}
-                                            whileInView={{ opacity: 1, y: 0 }}
-                                            viewport={{ once: true }}
-                                            transition={{ duration: 0.6, delay: 0.4 }}
-                                            className="text-2xl md:text-3xl font-bold mb-2"
-                                        >
-                                            {portfolioData.education.degree}
-                                        </motion.h3>
-                                        <motion.p
-                                            initial={{ opacity: 0 }}
-                                            whileInView={{ opacity: 1 }}
-                                            viewport={{ once: true }}
-                                            transition={{ duration: 0.6, delay: 0.5 }}
-                                            className="text-muted-foreground text-lg"
-                                        >
-                                            {portfolioData.education.institution}
-                                        </motion.p>
-                                    </div>
-                                    <motion.span
-                                        initial={{ opacity: 0, scale: 0.8 }}
-                                        whileInView={{ opacity: 1, scale: 1 }}
-                                        viewport={{ once: true }}
-                                        transition={{ duration: 0.6, delay: 0.6, type: "spring" }}
-                                        className="text-blue-400 font-mono text-xl px-6 py-3 rounded-full bg-blue-500/10 border border-blue-500/20"
-                                    >
-                                        {portfolioData.education.period}
-                                    </motion.span>
+                                        <div>
+                                            <dt className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">Certified</dt>
+                                            {portfolioData.certifications.map((c) => (
+                                                <dd key={c.title} className="mt-2 text-fg/85">
+                                                    {c.title}
+                                                </dd>
+                                            ))}
+                                        </div>
+                                    </dl>
                                 </div>
                             </div>
-                        </motion.div>
-                    </motion.div>
+                        </div>
+                    </aside>
+
+                    {/* Highlights */}
+                    <ol className="xp-list relative lg:col-span-7 lg:pl-14">
+                        <span aria-hidden="true" className="absolute bottom-0 left-[5px] top-0 hidden w-px bg-line lg:block" />
+                        <span
+                            aria-hidden="true"
+                            className="xp-progress absolute bottom-0 left-[5px] top-0 hidden w-px origin-top bg-lime lg:block"
+                        />
+                        {job.highlights.map((h, i) => (
+                            <li key={h.title} className="xp-item relative border-t border-line py-10 first:border-t-0 first:pt-0 md:py-12">
+                                <span
+                                    aria-hidden="true"
+                                    className={`xp-dot absolute -left-14 hidden h-[11px] w-[11px] rounded-full bg-[#2a2a28] lg:block ${i === 0 ? "top-2" : "top-12"}`}
+                                />
+                                <div data-anim="fade" className="grid gap-4 md:grid-cols-[80px_1fr]">
+                                    <span className="font-mono text-sm text-lime">0{i + 1}</span>
+                                    <div>
+                                        <h4 className="font-display text-2xl font-semibold tracking-[-0.02em] md:text-[2rem]">{h.title}</h4>
+                                        <p className="mt-3 max-w-xl leading-relaxed text-muted">{h.description}</p>
+                                    </div>
+                                </div>
+                            </li>
+                        ))}
+                    </ol>
                 </div>
             </div>
         </section>
