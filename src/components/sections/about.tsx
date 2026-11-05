@@ -1,131 +1,88 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { GraduationCap, Briefcase, Award, ArrowRight } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import { portfolioData } from "@/lib/data";
-import Link from "next/link";
+import { Eyebrow } from "@/components/ui/primitives";
 
-const infoCards = [
-    {
-        icon: GraduationCap,
-        title: "Education",
-        subtitle: portfolioData.education.degree,
-        meta: `${portfolioData.education.institution}\n${portfolioData.education.period}`,
-    },
-    {
-        icon: Briefcase,
-        title: "Current Role",
-        subtitle: portfolioData.experience[0].title,
-        meta: `${portfolioData.experience[0].company}\n${portfolioData.experience[0].period}`,
-    },
-    {
-        icon: Award,
-        title: "Certification",
-        subtitle: "Celigo Builder Core",
-        meta: "iPaaS Integration\nCertified Developer",
-    },
-];
+function projectImage(slug: string) {
+    return portfolioData.projects.find((p) => p.slug === slug)!.image;
+}
+
+/** Small rounded image that sits inline with the statement text. */
+function Pill({ slug, alt }: { slug: string; alt: string }) {
+    return (
+        <span
+            data-pill
+            className="relative mx-[0.12em] inline-block h-[0.82em] w-[1.7em] translate-y-[0.08em] overflow-hidden rounded-full align-baseline ring-1 ring-white/15"
+        >
+            <Image src={projectImage(slug)} alt={alt} fill sizes="140px" className="object-cover object-top" />
+        </span>
+    );
+}
+
+function startYear() {
+    const period = portfolioData.experience[0]?.period ?? "";
+    const year = parseInt(period.match(/\d{4}/)?.[0] ?? "", 10);
+    return Number.isFinite(year) ? year : new Date().getFullYear();
+}
 
 export function About() {
+    const uniqueTech = new Set(Object.values(portfolioData.skills).flat()).size;
+    const years = Math.max(1, new Date().getFullYear() - startYear());
+
+    const stats = [
+        { value: portfolioData.projects.length, suffix: "", label: "Projects shipped" },
+        { value: 50, suffix: "+", label: "Happy clients" },
+        { value: years, suffix: "+", label: "Years in production" },
+        { value: uniqueTech, suffix: "+", label: "Technologies" },
+    ];
+
     return (
-        <section id="about" className="relative py-24 md:py-32 px-6 overflow-hidden">
-            {/* Background text */}
-            <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 0.02 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1 }}
-                className="absolute top-20 left-1/2 -translate-x-1/2 text-[12vw] font-black whitespace-nowrap pointer-events-none select-none"
-            >
-                ABOUT ME
-            </motion.div>
-
-            <div className="max-w-6xl mx-auto relative z-10">
-                {/* Section Header */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="text-center mb-16"
-                >
-                    <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-primary/10 text-primary border border-primary/30 mb-4">
-                        Introduction
-                    </span>
-                    <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-br from-foreground to-muted-foreground bg-clip-text text-transparent">
-                        About Me
-                    </h2>
-                </motion.div>
-
-                {/* Content Grid */}
-                <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
-                    {/* Text Content */}
-                    <motion.div
-                        initial={{ opacity: 0, x: -30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                        className="space-y-6"
-                    >
-                        <p className="text-xl md:text-2xl font-medium text-foreground leading-relaxed">
-                            {portfolioData.about.lead}
-                        </p>
-                        {portfolioData.about.paragraphs.map((paragraph, index) => (
-                            <p key={index} className="text-muted-foreground leading-relaxed">
-                                {paragraph.includes("Cloud Destinations") ? (
-                                    <>
-                                        Currently working at{" "}
-                                        <span className="text-primary font-semibold">Cloud Destinations</span>{" "}
-                                        {paragraph.split("Cloud Destinations")[1]}
-                                    </>
-                                ) : (
-                                    paragraph
-                                )}
-                            </p>
-                        ))}
-                        <div className="pt-4">
-                            <Link href="#contact">
-                                <Button className="rounded-full gap-2 bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-[0_10px_30px_rgba(204,255,0,0.3)] transition-all duration-300">
-                                    Get in Touch
-                                    <ArrowRight className="w-4 h-4" />
-                                </Button>
-                            </Link>
+        <section id="about" className="relative py-28 md:py-44">
+            <div className="container-x">
+                <div className="grid gap-10 lg:grid-cols-12">
+                    <div className="lg:col-span-3">
+                        <div data-anim="fade">
+                            <Eyebrow>About me</Eyebrow>
                         </div>
-                    </motion.div>
+                    </div>
 
-                    {/* Info Cards */}
-                    <div className="space-y-5">
-                        {infoCards.map((card, index) => (
-                            <motion.div
-                                key={index}
-                                initial={{ opacity: 0, x: 30 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
-                                whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                            >
-                                <Card className="bg-card border-border hover:border-muted-foreground/30 transition-all duration-300 hover:shadow-xl hover:shadow-primary/5">
-                                    <CardContent className="p-6">
-                                        <div className="flex items-start gap-4">
-                                            <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
-                                                <card.icon className="w-6 h-6" />
-                                            </div>
-                                            <div>
-                                                <h3 className="font-bold text-lg mb-1">{card.title}</h3>
-                                                <p className="text-muted-foreground mb-2">{card.subtitle}</p>
-                                                <span className="text-sm text-muted-foreground/70 whitespace-pre-line leading-relaxed">
-                                                    {card.meta}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            </motion.div>
-                        ))}
+                    <div className="lg:col-span-9">
+                        <p
+                            data-anim="words-scrub"
+                            className="font-display text-[clamp(1.85rem,4.4vw,4.5rem)] font-medium leading-[1.06] tracking-[-0.025em]"
+                        >
+                            I&apos;m Ahmed, a full stack engineer at Cloud Destinations. I build cinematic websites{" "}
+                            <Pill slug="thrill-mill" alt="Thrill Mill website" /> CRMs, billing systems and AI agents{" "}
+                            <Pill slug="senseimage-drone" alt="SenseImage website" /> that are fast, scalable and
+                            obsessively detailed.
+                        </p>
+
+                        <div className="mt-14 grid gap-8 text-base leading-relaxed text-muted md:mt-20 md:grid-cols-2 md:text-lg">
+                            {portfolioData.about.paragraphs.map((p, i) => (
+                                <p key={i} data-anim="fade" data-delay={String(i * 0.1)}>
+                                    {p}
+                                </p>
+                            ))}
+                        </div>
                     </div>
                 </div>
+
+                {/* Stats */}
+                <dl className="mt-24 grid grid-cols-2 md:mt-32 lg:grid-cols-4">
+                    {stats.map((s, i) => (
+                        <div key={s.label} className="relative pb-2 pr-6 pt-8">
+                            <span data-anim="line" data-delay={String(i * 0.1)} className="absolute inset-x-0 top-0 h-px bg-line" />
+                            <dt className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
+                                <span className="text-lime">0{i + 1}</span> — {s.label}
+                            </dt>
+                            <dd className="mt-4 font-display text-[clamp(3.5rem,8vw,7.5rem)] font-semibold leading-none tracking-[-0.04em]">
+                                <span data-anim="count" data-to={s.value} data-delay={String(i * 0.08)}>
+                                    {s.value}
+                                </span>
+                                <span className="text-lime">{s.suffix}</span>
+                            </dd>
+                        </div>
+                    ))}
+                </dl>
             </div>
         </section>
     );

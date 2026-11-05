@@ -1,44 +1,62 @@
 # Ahmed Thousif - Portfolio
 
-A modern, high-performance personal portfolio website built with Next.js 16, Tailwind CSS 4, and Framer Motion. Designed to showcase projects, skills, and experience with a focus on smooth animations and a premium dark-themed aesthetic.
+A cinematic, high-performance personal portfolio built with Next.js 16, Tailwind CSS 4, GSAP and Lenis — black + lime, kinetic typography and scroll-driven motion throughout.
 
 
 ## 🚀 Tech Stack
 
-- **Framework:** [Next.js 16](https://nextjs.org/) (App Router)
+- **Framework:** [Next.js 16](https://nextjs.org/) (App Router, static generation)
 - **Language:** [TypeScript](https://www.typescriptlang.org/)
 - **Styling:** [Tailwind CSS v4](https://tailwindcss.com/)
-- **Animations:** [Framer Motion](https://www.framer.com/motion/)
-- **Smooth Scroll:** [Lenis](https://lenis.studiofreight.com/)
-- **Icons:** [Lucide React](https://lucide.dev/)
-- **UI Primitives:** [Radix UI](https://www.radix-ui.com/)
+- **Animation:** [GSAP](https://gsap.com/) — ScrollTrigger, SplitText, Flip (+ `@gsap/react`)
+- **Smooth Scroll:** [Lenis](https://lenis.darkroom.engineering/), synced to the GSAP ticker
+- **Images:** `next/image` (AVIF/WebP, responsive sizes, blur placeholders)
+- **Fonts:** Bricolage Grotesque, Geist, Geist Mono, Instrument Serif via `next/font`
+- **Icons:** Lucide, React Icons
+- **Contact form:** EmailJS
 
 
 ## ✨ Features
 
-- 🎨 **Modern Dark UI:** A sleek, professional dark theme design.
-- ⚡ **Smooth Scrolling:** Implemented using `lenis` for a premium navigational fee.
-- 🎭 **Interactive Animations:** Rich, engaging animations powered by Framer Motion.
-- 📱 **Fully Responsive:** Optimized layout for mobile, tablet, and desktop.
-- 🧩 **Modular Architecture:** Cleanly separated sections for easy maintenance.
+- 🎬 **Kinetic hero:** split-letter name reveal over a feathered portrait; the name slides apart on scroll.
+- 🔭 **Zoom showreel:** a pinned collage of real project screenshots that zooms to full-screen.
+- 📁 **Folder → showcase flight:** opening a project folder flies its thumbnails into the list (GSAP Flip).
+- ✍️ **Declarative scroll motion:** add `data-anim="lines|chars|fade|stagger|clip|parallax|line|count|words-scrub"` to any element.
+- 🖱️ **Custom cursor & magnetic buttons** on mouse/trackpad devices.
+- ♿ **Respects `prefers-reduced-motion`** — smooth scroll and animations switch off, content stays visible.
+- ⚡ **Fast:** static pages, optimised images, no animation work for offscreen sections.
 
 
 ## 📂 Project Structure
 
 ```bash
 src/
-├── app/              # Next.js App Router (Pages & Layouts)
-│   ├── globals.css   # Global styles & Tailwind directives
-│   ├── layout.tsx    # Root layout structure
-│   └── page.tsx      # Main landing page
-├── components/       # React Components
-│   ├── sections/     # Page Sections (Hero, Projects, Experience, etc.)
-│   ├── ui/           # Reusable UI elements
-│   ├── navbar.tsx    # Navigation bar
-│   ├── footer.tsx    # Footer component
-│   └── motion.tsx    # Custom motion wrappers
-└── lib/              # Utility functions
+├── app/
+│   ├── layout.tsx              # Fonts, metadata, smooth scroll, cursor, grain
+│   ├── template.tsx            # Lime curtain page transition
+│   ├── page.tsx                # Home page (section order)
+│   └── projects/[slug]/        # Statically generated case-study pages
+├── assets/                     # Optimised images (profile + projects/*.webp)
+├── components/
+│   ├── motion/scroll-animations.tsx  # data-anim engine
+│   ├── providers/smooth-scroll.tsx   # Lenis + ScrollTrigger sync
+│   ├── sections/               # Hero, Marquee, About, Showreel, Projects, …
+│   ├── ui/                     # Cursor, Magnetic, Folder, primitives
+│   ├── navbar.tsx
+│   └── footer.tsx
+└── lib/
+    ├── data.ts                 # All content — projects, skills, experience
+    └── gsap.ts                 # Plugin registration + helpers
 ```
+
+
+## ➕ Adding a project
+
+1. Save a screenshot (ideally 2400×1500, 16:10) to `src/assets/projects/<slug>.webp` (PNG/JPG also work — Next optimises them).
+2. In `src/lib/data.ts`, import it at the top: `import mySiteImg from "@/assets/projects/my-site.webp";`
+3. Add an entry to `projects` with `image: mySiteImg` and a `category` from `projectCategories`.
+
+The folder counts, project page and SEO metadata are generated automatically.
 
 
 ## 🛠️ Getting Started

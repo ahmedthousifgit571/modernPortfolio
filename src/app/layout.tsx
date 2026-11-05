@@ -1,45 +1,79 @@
-import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Bricolage_Grotesque, Geist, Geist_Mono, Instrument_Serif, Poppins } from "next/font/google";
 import "./globals.css";
-import { SmoothScrollProvider } from "@/components/smooth-scroll-provider";
+import { SmoothScroll } from "@/components/providers/smooth-scroll";
+import { Cursor } from "@/components/ui/cursor";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
+const display = Bricolage_Grotesque({
+    variable: "--font-bricolage",
+    subsets: ["latin"],
+    display: "swap",
 });
 
+const sans = Geist({
+    variable: "--font-geist",
+    subsets: ["latin"],
+    display: "swap",
+});
+
+const mono = Geist_Mono({
+    variable: "--font-geist-mono",
+    subsets: ["latin"],
+    display: "swap",
+});
+
+// Hero name (matches the original iPhone hero)
 const poppins = Poppins({
-  variable: "--font-poppins",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
+    variable: "--font-poppins",
+    subsets: ["latin"],
+    weight: ["300", "600"],
+    display: "swap",
+});
+
+const serif = Instrument_Serif({
+    variable: "--font-instrument",
+    subsets: ["latin"],
+    weight: "400",
+    style: ["normal", "italic"],
+    display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Ahmed Thousif | Full Stack Developer",
-  description: "Full Stack Developer specializing in React, Node.js, Next.js, and Cloud Technologies. Building scalable web applications with modern technologies.",
-  keywords: ["Full Stack Developer", "React", "Node.js", "Next.js", "AWS", "Portfolio", "Ahmed Thousif"],
-  authors: [{ name: "Ahmed Thousif" }],
-  openGraph: {
-    title: "Ahmed Thousif | Full Stack Developer",
-    description: "Building exceptional digital experiences with modern technologies",
-    type: "website",
-  },
+    title: {
+        default: "Ahmed Thousif — Full Stack Developer",
+        template: "%s — Ahmed Thousif",
+    },
+    description:
+        "Full Stack Developer building cinematic websites, CRMs, billing software, mobile apps and AI agents with Next.js, React, Node.js and the cloud.",
+    keywords: ["Full Stack Developer", "Next.js", "React", "Node.js", "GSAP", "AI Agents", "Portfolio", "Ahmed Thousif"],
+    authors: [{ name: "Ahmed Thousif" }],
+    openGraph: {
+        title: "Ahmed Thousif — Full Stack Developer",
+        description: "Cinematic websites, CRMs, billing software and AI agents — built fast and shipped to production.",
+        type: "website",
+    },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="en" className="dark">
-      <body className={`${inter.variable} ${poppins.variable} font-sans antialiased`}>
-        <SmoothScrollProvider>
-          {children}
-        </SmoothScrollProvider>
-      </body>
-    </html>
-  );
+export const viewport: Viewport = {
+    themeColor: "#000000",
+    colorScheme: "dark",
+};
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+    return (
+        <html
+            lang="en"
+            suppressHydrationWarning
+            className={`${display.variable} ${sans.variable} ${mono.variable} ${serif.variable} ${poppins.variable}`}
+        >
+            <head>
+                {/* Marks JS as available before paint so entrance animations don't flash */}
+                <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+            </head>
+            <body>
+                <SmoothScroll>{children}</SmoothScroll>
+                <Cursor />
+            </body>
+        </html>
+    );
 }

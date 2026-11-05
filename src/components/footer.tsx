@@ -1,117 +1,128 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, ArrowUpRight } from "lucide-react";
-import { portfolioData } from "@/lib/data";
+import { useRef } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { ArrowUp } from "lucide-react";
+import { gsap, SplitText, useGSAP, prefersReducedMotion } from "@/lib/gsap";
+import { scrollToTarget } from "@/components/providers/smooth-scroll";
+import { Magnetic } from "@/components/ui/magnetic";
+import { portfolioData } from "@/lib/data";
 
-const footerLinks = [
-    { href: "#home", label: "Home" },
-    { href: "#projects", label: "Projects" },
-    { href: "#skills", label: "Skills" },
-    { href: "#experience", label: "Experience" },
-    { href: "#contact", label: "Contact" },
+const nav = [
+    { label: "About", href: "/#about" },
+    { label: "Work", href: "/#projects" },
+    { label: "Experience", href: "/#experience" },
+    { label: "Skills", href: "/#skills" },
+    { label: "Contact", href: "/#contact" },
 ];
 
-const socialLinks = [
-    { icon: Github, href: portfolioData.github, label: "GitHub" },
-    { icon: Linkedin, href: portfolioData.linkedin, label: "LinkedIn" },
-    { icon: Mail, href: `mailto:${portfolioData.email}`, label: "Email" },
+const socials = [
+    { label: "LinkedIn", href: portfolioData.linkedin },
+    { label: "GitHub", href: portfolioData.github },
+    { label: "Email", href: `mailto:${portfolioData.email}` },
 ];
 
 export function Footer() {
+    const root = useRef<HTMLElement>(null);
+    const pathname = usePathname();
+
+    // Giant wordmark rises letter-by-letter as the footer scrolls into view
+    useGSAP(
+        () => {
+            if (prefersReducedMotion()) return;
+            const split = SplitText.create(".footer-mark", { type: "chars" });
+            gsap.from(split.chars, {
+                yPercent: 105,
+                ease: "none",
+                stagger: 0.04,
+                scrollTrigger: { trigger: root.current, start: "top 85%", end: "bottom bottom", scrub: 0.6 },
+            });
+        },
+        { scope: root }
+    );
+
     return (
-        <footer className="relative py-16 px-6 overflow-hidden">
-            {/* Background gradient */}
-            <div className="absolute inset-0 bg-gradient-to-t from-card/50 to-transparent pointer-events-none" />
-
-            <div className="max-w-5xl mx-auto relative z-10">
-                {/* Main Footer Content */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="bg-card/80 backdrop-blur-xl rounded-3xl border border-border p-8 md:p-12"
-                >
-                    <div className="grid md:grid-cols-2 gap-12 mb-12">
-                        {/* Left Side - Branding */}
-                        <div>
-                            <Link href="#home" className="inline-block mb-6">
-                                <span className="text-3xl font-bold text-primary">.Ahmed</span>
-                            </Link>
-                            <p className="text-muted-foreground max-w-sm mb-6">
-                                Full Stack Developer crafting exceptional digital experiences with modern technologies.
-                            </p>
-
-                            {/* Social Links */}
-                            <div className="flex items-center gap-3">
-                                {socialLinks.map((social) => (
-                                    <Link
-                                        key={social.label}
-                                        href={social.href}
-                                        target={social.href.startsWith("http") ? "_blank" : undefined}
-                                        aria-label={social.label}
-                                    >
-                                        <motion.div
-                                            whileHover={{ scale: 1.1, y: -2 }}
-                                            whileTap={{ scale: 0.95 }}
-                                            className="w-11 h-11 rounded-full bg-secondary border border-border flex items-center justify-center text-muted-foreground hover:bg-primary hover:border-primary hover:text-primary-foreground transition-all duration-300"
-                                        >
-                                            <social.icon className="w-5 h-5" />
-                                        </motion.div>
-                                    </Link>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Right Side - Links */}
-                        <div className="grid grid-cols-2 gap-8">
-                            <div>
-                                <h4 className="font-semibold mb-4 text-foreground">Navigation</h4>
-                                <ul className="space-y-3">
-                                    {footerLinks.slice(0, 3).map((link) => (
-                                        <li key={link.href}>
-                                            <Link
-                                                href={link.href}
-                                                className="text-muted-foreground hover:text-primary transition-colors duration-300 flex items-center gap-1 group"
-                                            >
-                                                {link.label}
-                                                <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                                            </Link>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                            <div>
-                                <h4 className="font-semibold mb-4 text-foreground">More</h4>
-                                <ul className="space-y-3">
-                                    {footerLinks.slice(3).map((link) => (
-                                        <li key={link.href}>
-                                            <Link
-                                                href={link.href}
-                                                className="text-muted-foreground hover:text-primary transition-colors duration-300 flex items-center gap-1 group"
-                                            >
-                                                {link.label}
-                                                <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                                            </Link>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Divider */}
-                    <div className="h-px bg-border mb-8" />
-
-                    {/* Copyright */}
-                    <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-                        <p className="text-sm text-muted-foreground">
-                            © {new Date().getFullYear()} Ahmed Thousif. All rights reserved.
+        <footer ref={root} className="relative overflow-hidden border-t border-line pt-20">
+            <div className="container-x">
+                <div className="grid gap-12 md:grid-cols-12">
+                    <div className="md:col-span-5">
+                        <p className="max-w-sm font-display text-3xl font-semibold leading-tight tracking-[-0.02em]">
+                            Have an idea? Let&apos;s make it <em className="font-serif font-normal text-lime">real</em>.
                         </p>
+                        <a
+                            href={`mailto:${portfolioData.email}`}
+                            className="mt-5 inline-block text-muted underline decoration-white/20 underline-offset-4 transition-colors hover:text-lime hover:decoration-lime"
+                        >
+                            {portfolioData.email}
+                        </a>
                     </div>
-                </motion.div>
+
+                    <nav aria-label="Footer" className="md:col-span-2 md:col-start-7">
+                        <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted">Menu</p>
+                        <ul className="mt-5 space-y-2">
+                            {nav.map((l) => (
+                                <li key={l.label}>
+                                    <Link
+                                        href={l.href}
+                                        onClick={(e) => {
+                                            if (pathname !== "/") return; // cross-page: let Next navigate
+                                            e.preventDefault();
+                                            scrollToTarget(l.href.slice(1), -24);
+                                        }}
+                                        className="text-fg/80 transition-colors hover:text-lime"
+                                    >
+                                        {l.label}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </nav>
+
+                    <div className="md:col-span-2">
+                        <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted">Social</p>
+                        <ul className="mt-5 space-y-2">
+                            {socials.map((s) => (
+                                <li key={s.label}>
+                                    <a
+                                        href={s.href}
+                                        target={s.href.startsWith("http") ? "_blank" : undefined}
+                                        rel="noopener noreferrer"
+                                        className="text-fg/80 transition-colors hover:text-lime"
+                                    >
+                                        {s.label}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    <div className="flex md:col-span-2 md:justify-end">
+                        <Magnetic>
+                            <button
+                                type="button"
+                                onClick={() => scrollToTarget(0)}
+                                aria-label="Back to top"
+                                className="group flex h-16 w-16 items-center justify-center rounded-full border border-white/15 transition-colors duration-500 hover:border-lime hover:bg-lime hover:text-black"
+                            >
+                                <ArrowUp className="h-5 w-5 transition-transform duration-500 ease-out-expo group-hover:-translate-y-1" strokeWidth={1.5} />
+                            </button>
+                        </Magnetic>
+                    </div>
+                </div>
+            </div>
+
+            {/* Wordmark */}
+            <div className="mt-20 overflow-hidden md:mt-28" aria-hidden="true">
+                <p className="footer-mark select-none whitespace-nowrap text-center font-display text-[12.4vw] font-bold uppercase leading-[0.78] tracking-[-0.05em] text-fg">
+                    Ahmed Thousif
+                </p>
+            </div>
+
+            <div className="container-x flex flex-col justify-between gap-3 border-t border-line py-6 font-mono text-[11px] uppercase tracking-[0.18em] text-muted md:flex-row">
+                <p>© {new Date().getFullYear()} {portfolioData.name}</p>
+                <p>Built with Next.js · GSAP · Lenis</p>
+                <p>{portfolioData.location}</p>
             </div>
         </footer>
     );

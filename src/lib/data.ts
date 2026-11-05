@@ -1,3 +1,40 @@
+import type { StaticImageData } from "next/image";
+import senseimageDroneImg from "@/assets/projects/senseimage-drone.webp";
+import lourtexImg from "@/assets/projects/lourtex.webp";
+import projectHulkImg from "@/assets/projects/project-hulk.webp";
+import architectureFirmImg from "@/assets/projects/architecture-firm.webp";
+import thrillMillImg from "@/assets/projects/thrill-mill.webp";
+import mgmHospitalImg from "@/assets/projects/mgm-hospital.webp";
+import faizuraTradingImg from "@/assets/projects/faizura-trading.webp";
+import bemapTravelImg from "@/assets/projects/bemap-travel.webp";
+import goldenBricksImg from "@/assets/projects/golden-bricks.webp";
+import doctorAppointmentBookingImg from "@/assets/projects/doctor-appointment-booking.webp";
+import btechTutorImg from "@/assets/projects/btech-tutor.webp";
+import brunelSteelImg from "@/assets/projects/brunel-steel.webp";
+import schoolManagementApplicationImg from "@/assets/projects/school-management-application.webp";
+import khushalJewellersImg from "@/assets/projects/khushal-jewellers.webp";
+import saravanaTransportBillingImg from "@/assets/projects/saravana-transport-billing.webp";
+import jobzindaImg from "@/assets/projects/jobzinda.webp";
+import zindalearnImg from "@/assets/projects/zindalearn.webp";
+import techvestAiImg from "@/assets/projects/techvest-ai.webp";
+import ragApplicationImg from "@/assets/projects/rag-application.webp";
+import chatifyRealTimeChatImg from "@/assets/projects/chatify-real-time-chat.webp";
+import tunehiveMusicStreamingImg from "@/assets/projects/tunehive-music-streaming.webp";
+import fullstackEcommerceImg from "@/assets/projects/fullstack-ecommerce.webp";
+
+export type Project = {
+    slug: string;
+    category: string;
+    title: string;
+    description: string;
+    tags: string[];
+    tech: string[];
+    liveUrl?: string;
+    githubUrl?: string;
+    gradient: string;
+    image: StaticImageData;
+};
+
 export const portfolioData = {
     name: "Ahmed Thousif",
     initials: "AT",
@@ -5,6 +42,8 @@ export const portfolioData = {
     tagline: "Building exceptional digital experiences with modern technologies",
     email: "ahmedthousif9388@gmail.com",
     phone: "+91 8139057899",
+    location: "Coimbatore, India",
+    timeZone: "Asia/Kolkata",
     linkedin: "https://www.linkedin.com/in/ahmed-thousif/",
     github: "https://github.com/ahmedthousifgit571/",
 
@@ -58,6 +97,18 @@ export const portfolioData = {
 
     projects: [
         {
+            slug: "senseimage-drone",
+            category: "Websites",
+            title: "SenseImage — Drone Technology Website",
+            description: "Defence and drone-tech companies build highly engineered hardware, but their websites often reduce it to spec tables and stock photos, so buyers never get a feel for the machine. SenseImage Technologies, a Chennai-based drone company, needed a site as advanced as its fleet. I built an immersive, cinematic web experience that showcases its counter-UAV interceptor, survey and heavy-lift drones, and industry services: interactive 3D drone scenes rendered in real time with Three.js (React Three Fiber and Drei), GSAP scroll-triggered storytelling that reveals each aircraft and capability as you scroll, Anime.js micro-interactions, and Lenis smooth scrolling that keeps the experience fluid from hero to field-demo request. Built with Next.js, React, and TypeScript for a fast, type-safe foundation, styled with Tailwind CSS, and deployed on Vercel, the site makes a complex defence-tech product line feel tangible and credible to government and enterprise buyers.",
+            tags: ["Drone Tech", "Defence", "3D / WebGL", "Cinematic"],
+            tech: ["Next.js", "React", "TypeScript", "Three.js", "React Three Fiber", "GSAP", "Lenis", "Anime.js", "Tailwind CSS", "Vercel"],
+            liveUrl: "https://sense-image.vercel.app/",
+            githubUrl: "https://github.com/ahmedthousifgit571/senseImage",
+            gradient: "from-sky-600/20 to-blue-600/20",
+            image: senseimageDroneImg
+        },
+        {
             slug: "lourtex",
             category: "Websites",
             title: "Lourtex — Curtains & Blinds Showcase Website",
@@ -67,7 +118,7 @@ export const portfolioData = {
             liveUrl: "https://www.lourtex.com",
             githubUrl: "https://github.com/ahmedthousifgit571/vortexx-curtains",
             gradient: "from-amber-600/20 to-orange-600/20",
-            image: "/curtain.png"
+            image: lourtexImg
         },
         {
             slug: "project-hulk",
@@ -79,7 +130,7 @@ export const portfolioData = {
             liveUrl: "https://www.project-hulk.com",
             githubUrl: "https://github.com/ahmedthousifgit571/personaltrainer",
             gradient: "from-green-600/20 to-lime-600/20",
-            image: "/fitness.png"
+            image: projectHulkImg
         },
         {
             slug: "architecture-firm",
@@ -91,7 +142,7 @@ export const portfolioData = {
             liveUrl: "https://www.srripositivebuilders.com",
             githubUrl: "https://github.com/ahmedthousifgit571/architetureFirm",
             gradient: "from-stone-600/20 to-neutral-600/20",
-            image: "/arc-2.png"
+            image: architectureFirmImg
         },
         {
             slug: "thrill-mill",
@@ -103,7 +154,7 @@ export const portfolioData = {
             liveUrl: "https://thrill-mill.vercel.app",
             githubUrl: "https://github.com/ahmedthousifgit571/thrill-mill-",
             gradient: "from-emerald-600/20 to-lime-600/20",
-            image: "/foootball.png"
+            image: thrillMillImg
         },
         {
             slug: "mgm-hospital",
@@ -115,7 +166,7 @@ export const portfolioData = {
             liveUrl: "https://mgm-hospital.vercel.app/",
             githubUrl: "https://github.com/ahmedthousifgit571/MGM_Hospital.git",
             gradient: "from-rose-600/20 to-pink-600/20",
-            image: "/mgm.png"
+            image: mgmHospitalImg
         },
         {
             slug: "faizura-trading",
@@ -127,7 +178,7 @@ export const portfolioData = {
             liveUrl: "https://faizura-trading.vercel.app/",
             githubUrl: "https://github.com/ahmedthousifgit571/FaizuraTrading",
             gradient: "from-emerald-600/20 to-teal-600/20",
-            image: "/moneyExchange.png"
+            image: faizuraTradingImg
         },
         {
             slug: "bemap-travel",
@@ -139,7 +190,7 @@ export const portfolioData = {
             liveUrl: "https://be-map-travel-website.vercel.app/",
             githubUrl: "https://github.com/ahmedthousifgit571/beMap-travel-website",
             gradient: "from-sky-600/20 to-cyan-600/20",
-            image: "/beMap.png"
+            image: bemapTravelImg
         },
         {
             slug: "golden-bricks",
@@ -151,7 +202,7 @@ export const portfolioData = {
             liveUrl: "https://golden-bricks.vercel.app/",
             githubUrl: "https://github.com/ahmedthousifgit571/GoldenBricks",
             gradient: "from-amber-600/20 to-yellow-600/20",
-            image: "/goldenBricks.png"
+            image: goldenBricksImg
         },
         {
             slug: "doctor-appointment-booking",
@@ -163,7 +214,7 @@ export const portfolioData = {
             liveUrl: "https://miaat.vercel.app/",
             githubUrl: "https://github.com/ahmedthousifgit571/MIAAT",
             gradient: "from-blue-600/20 to-purple-600/20",
-            image: "/doctorBooking.png"
+            image: doctorAppointmentBookingImg
         },
         {
             slug: "btech-tutor",
@@ -175,7 +226,7 @@ export const portfolioData = {
             liveUrl: "https://www.btechtutor.com",
             githubUrl: "https://github.com/ahmedthousifgit571/BtecTutor",
             gradient: "from-blue-600/20 to-indigo-600/20",
-            image: "/btechTutor.png"
+            image: btechTutorImg
         },
         {
             slug: "brunel-steel",
@@ -186,7 +237,7 @@ export const portfolioData = {
             tech: ["React", "FastAPI", "MongoDB", "Tailwind CSS", "AWS", "EmailJS"],
             liveUrl: "https://brunel-steel-buildings.vercel.app/",
             gradient: "from-slate-600/20 to-zinc-600/20",
-            image: "/steelWebsite.png"
+            image: brunelSteelImg
         },
         {
             slug: "school-management-application",
@@ -198,7 +249,7 @@ export const portfolioData = {
             liveUrl: "https://school-management-app-mauve.vercel.app",
             githubUrl: "https://github.com/ahmedthousifgit571/school-management-app",
             gradient: "from-yellow-600/20 to-pink-600/20",
-            image: "/schoolmanagement.jpg"
+            image: schoolManagementApplicationImg
         },
         {
             slug: "khushal-jewellers",
@@ -210,7 +261,7 @@ export const portfolioData = {
             liveUrl: "https://kushaljewellerys.com/",
             githubUrl: "https://github.com/ahmedthousifgit571/silver-shop-software",
             gradient: "from-amber-600/20 to-yellow-500/20",
-            image: "/goldsilver.png"
+            image: khushalJewellersImg
         },
         {
             slug: "saravana-transport-billing",
@@ -222,7 +273,7 @@ export const portfolioData = {
             liveUrl: "https://saravana-travels-pcqs.vercel.app/login?callbackUrl=%2Fbooking%2Fnew",
             githubUrl: "https://github.com/ahmedthousifgit571/saravanaTravels",
             gradient: "from-orange-600/20 to-amber-600/20",
-            image: "/billingSoftware.png"
+            image: saravanaTransportBillingImg
         },
         {
             slug: "jobzinda",
@@ -233,7 +284,7 @@ export const portfolioData = {
             tech: ["Flutter", "Node.js", "Express", "MongoDB"],
             liveUrl: "https://play.google.com/store/apps/details?id=com.jobZinda.customers",
             gradient: "from-violet-600/20 to-purple-600/20",
-            image: "/jobzinda.png"
+            image: jobzindaImg
         },
         {
             slug: "zindalearn",
@@ -244,7 +295,7 @@ export const portfolioData = {
             tech: ["Flutter", "Dart", "Node.js", "Express", "MongoDB", "Firebase", "Socket.IO"],
             liveUrl: "https://play.google.com/store/apps/details?id=com.zindalearn.zindalearn",
             gradient: "from-blue-600/20 to-cyan-600/20",
-            image: "/educatorTutor.png"
+            image: zindalearnImg
         },
         {
             slug: "techvest-ai",
@@ -255,7 +306,7 @@ export const portfolioData = {
             tech: ["Agno Framework", "Groq (Llama-3.3-70b)", "ChromaDB", "FastAPI", "Pydantic", "Next.js", "yfinance", "SSE"],
             githubUrl: "https://github.com/ahmedthousifgit571/techVestAi",
             gradient: "from-cyan-600/20 to-emerald-600/20",
-            image: "/techVest.png"
+            image: techvestAiImg
         },
         {
             slug: "rag-application",
@@ -267,7 +318,7 @@ export const portfolioData = {
             liveUrl: "https://rag-application-weld.vercel.app/",
             githubUrl: "https://github.com/ahmedthousifgit571/rag-application-backend",
             gradient: "from-blue-600/20 to-teal-600/20",
-            image: "/ragApplication.png"
+            image: ragApplicationImg
         },
         {
             slug: "chatify-real-time-chat",
@@ -279,7 +330,7 @@ export const portfolioData = {
             liveUrl: "https://streamify-p7e2.vercel.app/",
             githubUrl: "https://github.com/ahmedthousifgit571/connext",
             gradient: "from-cyan-600/20 to-blue-600/20",
-            image: "/chatify.png"
+            image: chatifyRealTimeChatImg
         },
         {
             slug: "tunehive-music-streaming",
@@ -291,7 +342,7 @@ export const portfolioData = {
             liveUrl: "https://tune-hive-ns4f.vercel.app/",
             githubUrl: "https://github.com/ahmedthousifgit571/tuneHive",
             gradient: "from-green-600/20 to-emerald-600/20",
-            image: "/tunehive.png"
+            image: tunehiveMusicStreamingImg
         },
         {
             slug: "fullstack-ecommerce",
@@ -302,9 +353,9 @@ export const portfolioData = {
             tech: ["Node.js", "MongoDB", "Razorpay", "AWS EC2"],
             githubUrl: "https://github.com/ahmedthousifgit571/ecommerce",
             gradient: "from-orange-600/20 to-red-600/20",
-            image: "/shoesEcommerce.png"
+            image: fullstackEcommerceImg
         }
-    ],
+    ] as Project[],
 
     skills: {
         frontend: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Next.js", "Redux", "Zustand", "Tanstack Query", "Tailwind CSS", "Shadcn UI", "Material UI"],

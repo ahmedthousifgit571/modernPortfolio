@@ -1,182 +1,170 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+/* ---------------------------------------------------------------
+   Design tokens
+   --------------------------------------------------------------- */
+@theme {
+  /* Classic flat black theme */
+  --color-bg: #000000;
+  --color-surface: #111111;
+  --color-elevated: #1a1a1a;
+  --color-fg: #ffffff;
+  --color-muted: #a0a0a0;
+  --color-faint: #4a4a4a;
+  --color-line: rgb(255 255 255 / 0.1);
+  --color-lime: #ccff00;
+  --color-lime-dim: #a3cc00;
 
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
+  --ease-smooth: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* next/font variables live on <html>, so fonts are inlined */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --color-lime: var(--lime);
-  --color-lime-glow: var(--lime-glow);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-bricolage), var(--font-geist), ui-sans-serif, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-serif: var(--font-instrument), ui-serif, Georgia, serif;
 }
 
-:root {
-  --radius: 0.625rem;
-  --lime: #CCFF00;
-  --lime-glow: rgba(204, 255, 0, 0.3);
-  --background: #000000;
-  --foreground: #ffffff;
-  --card: #111111;
-  --card-foreground: #ffffff;
-  --popover: #111111;
-  --popover-foreground: #ffffff;
-  --primary: #CCFF00;
-  --primary-foreground: #000000;
-  --secondary: #1a1a1a;
-  --secondary-foreground: #ffffff;
-  --muted: #1a1a1a;
-  --muted-foreground: #a0a0a0;
-  --accent: #1a1a1a;
-  --accent-foreground: #ffffff;
-  --destructive: #ff4444;
-  --border: rgba(255, 255, 255, 0.1);
-  --input: rgba(255, 255, 255, 0.1);
-  --ring: #CCFF00;
-  --chart-1: #CCFF00;
-  --chart-2: #3b82f6;
-  --chart-3: #22c55e;
-  --chart-4: #f59e0b;
-  --chart-5: #ec4899;
-  --sidebar: #0a0a0a;
-  --sidebar-foreground: #ffffff;
-  --sidebar-primary: #CCFF00;
-  --sidebar-primary-foreground: #000000;
-  --sidebar-accent: #1a1a1a;
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: rgba(255, 255, 255, 0.1);
-  --sidebar-ring: #CCFF00;
-}
-
+/* ---------------------------------------------------------------
+   Base
+   --------------------------------------------------------------- */
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+  html {
+    background-color: var(--color-bg);
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
   }
 
-  html {
-    scroll-behavior: smooth;
-  }
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #0a0a0a;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #333;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #444;
-}
-
-/* Selection color */
-::selection {
-  background: rgba(204, 255, 0, 0.3);
-  color: #fff;
-}
-
-/* Custom gradient animation */
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
+  ::selection {
+    background: var(--color-lime);
+    color: #000;
   }
 
-  50% {
-    background-position: 100% 50%;
+  :focus-visible {
+    outline: 2px solid var(--color-lime);
+    outline-offset: 3px;
   }
 
-  100% {
-    background-position: 0% 50%;
+  img {
+    -webkit-user-drag: none;
   }
 }
 
-.animate-gradient {
-  animation: gradient 5s ease infinite;
-}
-
-/* Radial gradient utility */
-.bg-gradient-radial {
-  background-image: radial-gradient(ellipse at center, var(--tw-gradient-from), var(--tw-gradient-to));
-}
-
-/* Lenis smooth scroll styles */
+/* ---------------------------------------------------------------
+   Lenis (smooth scroll)
+   --------------------------------------------------------------- */
 html.lenis,
 html.lenis body {
   height: auto;
 }
 
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
 }
 
-.lenis.lenis-smooth [data-lenis-prevent] {
+.lenis [data-lenis-prevent] {
   overscroll-behavior: contain;
 }
 
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-
-.lenis.lenis-scrolling iframe {
+.lenis.lenis-smooth iframe {
   pointer-events: none;
 }
 
-/* Marquee text styling */
-.marquee-text {
-  font-size: clamp(100px, 20vw, 300px);
-  font-weight: 900;
-  color: rgba(255, 255, 255, 0.03);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  white-space: nowrap;
-  user-select: none;
-  pointer-events: none;
+/* ---------------------------------------------------------------
+   Animation pre-states (only when JS is running, so no-JS users
+   always see content). GSAP flips these to visible on init.
+   --------------------------------------------------------------- */
+html.js [data-anim="lines"],
+html.js [data-anim="chars"],
+html.js [data-anim="fade"],
+html.js [data-anim="stagger"],
+html.js [data-anim="clip"],
+html.js .hero-sheet {
+  visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js [data-anim],
+  html.js .hero-sheet {
+    visibility: visible !important;
+  }
+}
+
+/* ---------------------------------------------------------------
+   Utilities
+   --------------------------------------------------------------- */
+@utility container-x {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+
+  @media (width >= 48rem) {
+    padding-inline: 2.5rem;
+  }
+
+  @media (width >= 80rem) {
+    padding-inline: 3.5rem;
+  }
+}
+
+@utility text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(255 255 255 / 0.35);
+}
+
+
+/* ---------------------------------------------------------------
+   Hero (iPhone mockup) — entrance is pure CSS so it starts on
+   first paint, independent of JS hydration.
+   --------------------------------------------------------------- */
+@keyframes hero-up {
+  from { opacity: 0; transform: translateY(var(--from-y, 50px)); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes hero-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.hero-phone {
+  animation: hero-up 0.8s var(--ease-out-expo) 0.2s both;
+}
+
+.hero-photo {
+  animation: hero-in 0.6s ease-out 0.5s both;
+}
+
+.hero-rise {
+  --from-y: 20px;
+  animation: hero-up 0.6s var(--ease-out-expo) both;
+  animation-delay: var(--d, 0.3s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-phone,
+  .hero-photo,
+  .hero-rise {
+    animation: none;
+  }
+}
+
+/* SplitText mask wrappers: give descenders room */
+.split-line-mask {
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
 }
